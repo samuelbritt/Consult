@@ -1,0 +1,458 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".CalculatorVancActivity" >
+
+        <!-- PATIENT DETAILS -->
+
+        <TextView
+            android:id="@+id/header_patient_details"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="bottom"
+            android:paddingLeft="0dp"
+            android:text="@string/header_patient_details"
+            android:textColor="?android:attr/textColorSecondaryInverse" />
+
+        <RelativeLayout
+            android:id="@+id/input_age"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/header_patient_details" >
+
+            <TextView
+                android:id="@+id/input_age_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_age_label" />
+
+            <TextView
+                android:id="@+id/input_age_unit"
+                style="@style/TextAppearance.Calculator_UnitSmall"
+                android:layout_below="@id/input_age_label"
+                android:text="@string/input_age_unit" />
+
+            <EditText
+                android:id="@+id/input_age_value"
+                style="@style/TextAppearance.Calculator_Value"
+                android:layout_alignBaseline="@id/input_age_unit"
+                android:layout_toLeftOf="@id/input_age_unit" >
+
+                <requestFocus />
+            </EditText>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/input_sex"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_age" >
+
+            <TextView
+                android:id="@+id/input_sex_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_sex_label" />
+
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/input_sex_label"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    style="@style/TextAppearance.Calculator_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/input_sex_radio_male"
+                    android:textAllCaps="false"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    style="@style/TextAppearance.Calculator_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/input_sex_radio_female"
+                    android:textAllCaps="false"
+                    android:textColor="?android:attr/textColorPrimary" />
+            </RadioGroup>
+        </RelativeLayout>
+ 
+        <RelativeLayout
+            android:id="@+id/input_ht"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_sex"
+            android:minHeight="48dp" >
+
+            <TextView
+                android:id="@+id/input_ht_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_ht_label" />
+
+            <Spinner
+                android:id="@+id/ht_unit_options"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true" />
+
+            <EditText
+                android:id="@+id/input_ht_value"
+                style="@style/TextAppearance.Calculator_Value"
+                android:layout_alignBaseline="@id/ht_unit_options"
+                android:layout_toLeftOf="@id/ht_unit_options" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/input_wt"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_ht" >
+
+            <TextView
+                android:id="@+id/input_wt_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_wt_label" />
+
+            <TextView
+                android:id="@+id/input_wt_unit"
+                style="@style/TextAppearance.Calculator_UnitSmall"
+                android:layout_below="@id/input_wt_label"
+                android:text="@string/input_wt_unit" />
+
+            <EditText
+                android:id="@+id/input_wt_value"
+                style="@style/TextAppearance.Calculator_Value"
+                android:layout_alignBaseline="@id/input_wt_unit"
+                android:layout_toLeftOf="@id/input_wt_unit" />
+        </RelativeLayout>
+
+       
+        
+        <RelativeLayout
+            android:id="@+id/input_SCr"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_wt" >
+
+            <TextView
+                android:id="@+id/input_SCr_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_SCr_label" />
+
+            <TextView
+                android:id="@+id/input_SCr_unit"
+                style="@style/TextAppearance.Calculator_UnitSmall"
+                android:layout_below="@id/input_SCr_label"
+                android:text="@string/input_SCr_unit" />
+
+            <EditText
+                android:id="@+id/input_SCr_value"
+                style="@style/TextAppearance.Calculator_Value"
+                android:layout_alignBaseline="@id/input_SCr_unit"
+                android:layout_toLeftOf="@id/input_SCr_unit" />
+        </RelativeLayout>
+
+
+        <!-- DOSING REGIMIN DETAILS -->
+
+        <TextView
+            android:id="@+id/header_dosing_regimin"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_SCr"
+            android:layout_marginBottom="16dp"
+            android:gravity="bottom"
+            android:paddingLeft="0dp"
+            android:text="@string/header_dosing_regimin"
+            android:textColor="?android:attr/textColorSecondaryInverse" />
+
+        <RelativeLayout
+            android:id="@+id/input_dose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_dosing_regimin"
+            android:minHeight="48dp" >
+
+            <TextView
+                android:id="@+id/input_dose_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_dose_label" />
+
+            <TextView
+                android:id="@+id/input_dose_value"
+                style="@style/TextAppearance.Calculator_UnitSmall"
+                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/input_dose_label"
+                android:text="@string/input_dose_label" />
+
+            <SeekBar
+                android:id="@+id/input_dose_seek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/input_dose_label" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/input_dose_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_dose"
+            android:minHeight="48dp" >
+
+            <TextView
+                android:id="@+id/input_dose_interval_label"
+                style="@style/TextAppearance.Calculator_LabelSmall"
+                android:text="@string/input_dose_interval_label" />
+
+            <TextView
+                android:id="@+id/input_dose_interval_value"
+                style="@style/TextAppearance.Calculator_UnitSmall"
+                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/input_dose_interval_label"
+                android:text="@string/input_dose_interval_label" />
+
+            <SeekBar
+                android:id="@+id/input_dose_interval_seek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/input_dose_interval_label" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/input_label_column"
+            android:layout_width="75dp"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/input_value_column"
+            android:layout_width="75dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/input_label_column" />
+
+        <TextView
+            android:id="@+id/input_unit_column"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/input_value_column" />
+
+        <TextView
+            android:id="@+id/output_ht_inches_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/input_label_column"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@id/input_label_column"
+            android:paddingTop="800dp"
+            android:text="@string/output_ht_inches_label" />
+
+        <TextView
+            android:id="@+id/output_ht_inches_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_ht_inches_label"
+            android:layout_alignLeft="@id/input_value_column"
+            android:layout_alignRight="@id/input_value_column"
+            android:layout_toRightOf="@id/output_ht_inches_label"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_ht_inches_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_ht_inches_label"
+            android:layout_alignLeft="@id/input_unit_column"
+            android:layout_alignRight="@id/input_unit_column"
+            android:layout_toRightOf="@id/output_ht_inches_value"
+            android:text="@string/output_ht_inches_unit" />
+
+        <TextView
+            android:id="@+id/output_kel_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/input_label_column"
+            android:layout_alignRight="@id/input_label_column"
+            android:layout_below="@id/output_ht_inches_label"
+            android:paddingTop="10dp"
+            android:text="@string/output_kel_label" />
+
+        <TextView
+            android:id="@+id/output_kel_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_kel_label"
+            android:layout_alignLeft="@id/input_value_column"
+            android:layout_alignRight="@id/input_value_column"
+            android:layout_toRightOf="@id/output_kel_label"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_kel_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_kel_label"
+            android:layout_alignLeft="@id/input_unit_column"
+            android:layout_alignRight="@id/input_unit_column"
+            android:layout_toRightOf="@id/output_kel_value"
+            android:text="@string/output_kel_unit" />
+
+        <TextView
+            android:id="@+id/output_halflife_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/input_label_column"
+            android:layout_alignRight="@id/input_label_column"
+            android:layout_below="@id/output_kel_label"
+            android:paddingTop="10dp"
+            android:text="@string/output_halflife_label" />
+
+        <TextView
+            android:id="@+id/output_halflife_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_halflife_label"
+            android:layout_alignLeft="@id/input_value_column"
+            android:layout_alignRight="@id/input_value_column"
+            android:layout_toRightOf="@id/output_halflife_label"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_halflife_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_halflife_label"
+            android:layout_alignLeft="@id/input_unit_column"
+            android:layout_alignRight="@id/input_unit_column"
+            android:layout_toRightOf="@id/output_halflife_value"
+            android:text="@string/output_halflife_unit" />
+
+        <TextView
+            android:id="@+id/output_Vd_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/input_label_column"
+            android:layout_alignRight="@id/input_label_column"
+            android:layout_below="@id/output_halflife_label"
+            android:paddingTop="10dp"
+            android:text="@string/output_Vd_label" />
+
+        <TextView
+            android:id="@+id/output_Vd_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Vd_label"
+            android:layout_alignLeft="@id/input_value_column"
+            android:layout_alignRight="@id/input_value_column"
+            android:layout_toRightOf="@id/output_Vd_label"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_Vd_hypoalbumenic_value"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Vd_label"
+            android:layout_toRightOf="@id/output_Vd_value"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_Vd_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Vd_label"
+            android:layout_toRightOf="@id/output_Vd_hypoalbumenic_value"
+            android:text="@string/output_Vd_unit" />
+
+        <TextView
+            android:id="@+id/output_Cmin_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/input_label_column"
+            android:layout_alignRight="@id/input_label_column"
+            android:layout_below="@id/output_Vd_label"
+            android:paddingTop="10dp"
+            android:text="@string/output_Cmin_label" />
+
+        <TextView
+            android:id="@+id/output_Cmin_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Cmin_label"
+            android:layout_alignLeft="@id/input_value_column"
+            android:layout_alignRight="@id/input_value_column"
+            android:layout_toRightOf="@id/output_Cmin_label"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_Cmin_hypoalbumenic_value"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Cmin_label"
+            android:layout_toRightOf="@id/output_Cmin_value"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_Cmin_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Cmin_label"
+            android:layout_toRightOf="@id/output_Cmin_hypoalbumenic_value"
+            android:text="@string/output_Cmin_unit" />
+
+        <TextView
+            android:id="@+id/output_Cmax_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/input_label_column"
+            android:layout_alignRight="@id/input_label_column"
+            android:layout_below="@id/output_Cmin_label"
+            android:paddingTop="10dp"
+            android:text="@string/output_Cmax_label" />
+
+        <TextView
+            android:id="@+id/output_Cmax_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Cmax_label"
+            android:layout_alignLeft="@id/input_value_column"
+            android:layout_alignRight="@id/input_value_column"
+            android:layout_toRightOf="@id/output_Cmax_label"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_Cmax_hypoalbumenic_value"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Cmax_label"
+            android:layout_toRightOf="@id/output_Cmax_value"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/output_Cmax_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/output_Cmax_label"
+            android:layout_toRightOf="@id/output_Cmax_hypoalbumenic_value"
+            android:text="@string/output_Cmax_unit" />
+    </RelativeLayout>
+
+</ScrollView>
