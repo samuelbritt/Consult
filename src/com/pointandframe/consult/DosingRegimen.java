@@ -1,10 +1,10 @@
 package com.pointandframe.consult;
 
-public class DosingRegimin extends SimpleObservable {
+public class DosingRegimen extends SimpleObservable {
 	private float dose_mg;
 	private float dosingInterval_hr;
 
-	public DosingRegimin() {
+	public DosingRegimen() {
 	}
 
 	public float getDose_mg() {
@@ -23,18 +23,6 @@ public class DosingRegimin extends SimpleObservable {
 	public void setDosingInterval_hr(float dosingInterval_hr) {
 		this.dosingInterval_hr = dosingInterval_hr;
 		onUpdate();
-	}
-
-	public float getInfusionTime_hr() {
-		if (dose_mg <= 1000) {
-			return 1f;
-		} else if (dose_mg <= 1500) {
-			return 1.5f;
-		} else if (dose_mg <= 2000) {
-			return 2f;
-		} else {
-			return 2.5f;
-		}
 	}
 	
 	public void onUpdate() {

@@ -1,21 +1,24 @@
 package com.pointandframe.consult;
 
-public class VancCalculator {
 
-	private DosingRegimin dosingRegimin = new DosingRegimin();
+public class PKCalculator {
+
+	private DosingRegimen dosingRegimen;
 	private Patient patient;
 	private Drug drug;
 	
-	public VancCalculator() {
-		this.drug = new Vancomycin();
+	public PKCalculator(Patient patient, Drug drug, DosingRegimen regimen) {
+		this.drug = drug;
+		this.patient = patient;
+		this.dosingRegimen = regimen;
 	}
 
-	public DosingRegimin getDosingRegimin() {
-		return dosingRegimin;
+	public DosingRegimen getDosingRegimin() {
+		return dosingRegimen;
 	}
 
-	public void setDosingRegimin(DosingRegimin dosingRegimin) {
-		this.dosingRegimin = dosingRegimin;
+	public void setDosingRegimin(DosingRegimen dosingRegimin) {
+		this.dosingRegimen = dosingRegimin;
 	}
 
 	public Patient getPatient() {
@@ -43,8 +46,8 @@ public class VancCalculator {
 	}
 	
 	public double getCmin(float volumeOfDistribution) {
-		float t_inf = dosingRegimin.getInfusionTime_hr();
-		float tau = dosingRegimin.getDosingInterval_hr();
+		float t_inf = drug.getInfusionTime_hr(dosingRegimen.getDose_mg());
+		float tau = dosingRegimen.getDosingInterval_hr();
 		float k_el = drug.getKElimination(patient);
 
 		double Cmax = getCmax(volumeOfDistribution);
@@ -52,9 +55,9 @@ public class VancCalculator {
 	}
 	
 	public double getCmax(float volumeOfDistribution) {
-		float t_inf = dosingRegimin.getInfusionTime_hr();
-		float tau = dosingRegimin.getDosingInterval_hr();
-		float dose_mg = dosingRegimin.getDose_mg();
+		float t_inf = drug.getInfusionTime_hr(dosingRegimen.getDose_mg());
+		float tau = dosingRegimen.getDosingInterval_hr();
+		float dose_mg = dosingRegimen.getDose_mg();
 		float k_el = drug.getKElimination(patient);
 		float abw = patient.getActualBodyWeight();
 		float Vd = volumeOfDistribution;

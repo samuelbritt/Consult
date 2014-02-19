@@ -82,8 +82,12 @@ public class Patient extends SimpleObservable {
 		return isMale;
 	}
 
-	public void setMale(boolean isMale) {
-		this.isMale = isMale;
+	public void setSex(Sex sex) {
+		if (sex == Sex.MALE) {
+			isMale = true;
+		} else {
+			isMale = false;
+		}
 		onUpdate();
 	}
 
@@ -262,4 +266,6 @@ public class Patient extends SimpleObservable {
 	private void onUpdate() {
 		notifyObservers();
 	}
+
+
 }
