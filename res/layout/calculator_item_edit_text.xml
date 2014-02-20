@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DataSection"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight" >
+
+    <TextView
+        android:id="@+id/label"
+        style="@style/TextAppearance.Calculator_LabelSmall"
+        android:text="@string/dummy_label" />
+
+    <TextView
+        android:id="@+id/unit"
+        style="@style/TextAppearance.Calculator_UnitSmall"
+        android:layout_below="@id/label"
+        android:text="@string/dummy_unit" />
+
+    <EditText
+        android:id="@+id/value"
+        style="@style/TextAppearance.Calculator_Value"
+        android:layout_alignBaseline="@id/unit"
+        android:layout_toLeftOf="@id/unit" />
+
+</RelativeLayout>
