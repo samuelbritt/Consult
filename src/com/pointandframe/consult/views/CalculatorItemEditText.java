@@ -45,6 +45,19 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		}
 	}
 
+	protected void setupView(Context context, AttributeSet attrs) {
+		inflate(context, R.layout.calculator_item_edit_text);
+
+		label = (TextView) findViewById(R.id.label);
+		unit = (TextView) findViewById(R.id.unit);
+		value = (EditText) findViewById(R.id.value);
+
+		setAttr(context, attrs);
+
+		value.setOnFocusChangeListener(this);
+		value.setOnEditorActionListener(this);
+	}
+
 	protected void inflate(Context context, int layoutRes) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,19 +81,6 @@ public class CalculatorItemEditText extends RelativeLayout implements
 			label.setText(titleText);
 		if (unit != null)
 			unit.setText(unitText);
-	}
-
-	protected void setupView(Context context, AttributeSet attrs) {
-		inflate(context, R.layout.calculator_item_edit_text);
-
-		label = (TextView) findViewById(R.id.label);
-		unit = (TextView) findViewById(R.id.unit);
-		value = (EditText) findViewById(R.id.value);
-
-		setAttr(context, attrs);
-
-		value.setOnFocusChangeListener(this);
-		value.setOnEditorActionListener(this);
 	}
 
 	@Override

@@ -241,28 +241,12 @@
             android:layout_width="match_parent"
             android:text="@string/header_results" />
 
-        <RelativeLayout
+        <com.pointandframe.consult.views.CalculatorItemOutput
             android:id="@+id/output_ht_inches"
-            style="@style/DataSection" >
-
-            <TextView
-                android:id="@+id/output_ht_inches_label"
-                style="@style/TextAppearance.Calculator_LabelSmall"
-                android:text="@string/output_ht_inches_label" />
-
-            <TextView
-                android:id="@+id/output_ht_inches_unit"
-                style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/output_ht_inches_unit" />
-
-            <TextView
-                android:id="@+id/output_ht_inches_value"
-                style="@style/TextAppearance.Calculator_Value"
-                android:layout_alignBaseline="@id/output_ht_inches_unit"
-                android:layout_toLeftOf="@id/output_ht_inches_unit" />
-        </RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            calculator:labelText="@string/output_ht_inches_label"
+            calculator:unitText="@string/output_ht_inches_unit" />
 
         <RelativeLayout
             android:id="@+id/output_kel"

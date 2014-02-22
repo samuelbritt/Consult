@@ -14,6 +14,7 @@ import com.pointandframe.consult.util.IObserver;
 import com.pointandframe.consult.views.CalculatorItem;
 import com.pointandframe.consult.views.CalculatorItemEditText;
 import com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner;
+import com.pointandframe.consult.views.CalculatorItemOutput;
 import com.pointandframe.consult.views.CalculatorItemSpinner;
 
 import android.os.Bundle;
@@ -66,7 +67,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	HashMap<SeekBar, int[]> seekBarProgressArrays;
 
 	// Outputs
-	private TextView outputHtInches;
+	private CalculatorItemOutput outputHtInches;
 	private TextView outputKel;
 	private TextView outputCrCl;
 	private TextView outputHalflife;
@@ -119,7 +120,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputDoseIntervalValue = (TextView) findViewById(R.id.input_dose_interval_value);
 
 		// Output
-		outputHtInches = ((TextView) findViewById(R.id.output_ht_inches_value));
+		outputHtInches = ((CalculatorItemOutput) findViewById(R.id.output_ht_inches));
 		outputKel = ((TextView) findViewById(R.id.output_kel_value));
 		outputHalflife = ((TextView) findViewById(R.id.output_halflife_value));
 		outputCrCl = ((TextView) findViewById(R.id.output_CrCl_value));
@@ -281,7 +282,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	}
 
 	private void updateOutputViews() {
-		outputHtInches.setText(String.format("%.2f", patient.getHeight_in()));
+		outputHtInches.setValue(patient.getHeight_in());
 		outputKel.setText(String.format("%.3f", calculator.getKElimination()));
 		outputHalflife.setText(String.format("%.2f", calculator.getHalflife()));
 		outputCrCl.setText(String.format("%.2f", patient.getCrCl()));

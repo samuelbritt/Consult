@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="CalculatorItem">
         <attr name="labelText" format="string" localization="suggested" />
+		<attr name="labelAllCaps" format="boolean" />
         <attr name="unitText" format="string" localization="suggested" />
     </declare-styleable>
 
