@@ -31,25 +31,11 @@
             calculator:labelText="@string/input_age_label"
             calculator:unitText="@string/input_age_unit" />
 
-        <RelativeLayout
+        <com.pointandframe.consult.views.CalculatorItemSpinner
             android:id="@+id/input_sex"
-            style="@style/DataSection" >
-
-            <TextView
-                android:id="@+id/input_sex_label"
-                style="@style/TextAppearance.Calculator_LabelSmall"
-                android:text="@string/input_sex_label" />
-
-            <Spinner
-                android:id="@+id/input_sex_spinner"
-                style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="48dp"
-                android:entries="@array/sex_options"
-                android:gravity="right" />
-        </RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            calculator:labelText="@string/input_sex_label" />
 
         <com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner
             android:id="@+id/input_ht"
@@ -178,7 +164,7 @@
         <TextView
             android:id="@+id/header_dosing_regimin"
             style="?android:attr/listSeparatorTextViewStyle"
-			android:text="@string/header_dosing_regimin" />
+            android:text="@string/header_dosing_regimin" />
 
         <RelativeLayout
             android:id="@+id/input_dose"

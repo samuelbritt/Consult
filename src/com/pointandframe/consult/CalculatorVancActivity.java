@@ -14,6 +14,7 @@ import com.pointandframe.consult.util.IObserver;
 import com.pointandframe.consult.views.CalculatorItem;
 import com.pointandframe.consult.views.CalculatorItemEditText;
 import com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner;
+import com.pointandframe.consult.views.CalculatorItemSpinner;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,18 +24,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 public class CalculatorVancActivity extends Activity implements IObserver,
-		Spinner.OnItemSelectedListener, OnSeekBarChangeListener,
-		OnClickListener, CalculatorItem.OnCalculatorItemChangeListener {
+		OnSeekBarChangeListener, OnClickListener,
+		CalculatorItem.OnCalculatorItemChangeListener {
 
 	// Model
 	private Patient patient;
@@ -44,7 +42,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 
 	// Patient Detail Input
 	private CalculatorItemEditText inputAge;
-	private Spinner inputSex;
+	private CalculatorItemSpinner inputSex;
 	private CalculatorItemEditTextUnitSpinner inputHt;
 	private CalculatorItemEditText inputWt;
 	private CalculatorItemEditText inputSCr;
@@ -98,7 +96,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		// Get Fields
 		// Input Patient Details
 		inputAge = (CalculatorItemEditText) findViewById(R.id.input_age);
-		inputSex = (Spinner) findViewById(R.id.input_sex_spinner);
+		inputSex = (CalculatorItemSpinner) findViewById(R.id.input_sex);
 		inputHt = (CalculatorItemEditTextUnitSpinner) findViewById(R.id.input_ht);
 		inputWt = (CalculatorItemEditText) findViewById(R.id.input_wt);
 		inputSCr = (CalculatorItemEditText) findViewById(R.id.input_SCr);
@@ -135,7 +133,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		// Add Listeners
 		// Patient Details
 		inputAge.setOnCalculatorItemChangeListener(this);
-		inputSex.setOnItemSelectedListener(this);
+		inputSex.setOnCalculatorItemChangeListener(this);
 		inputHt.setOnCalculatorItemChangeListener(this);
 		inputWt.setOnCalculatorItemChangeListener(this);
 		inputSCr.setOnCalculatorItemChangeListener(this);
@@ -157,16 +155,9 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 
 		// Init Views
 		inputHt.setUnitOptions(LengthUnit.values());
-		initSpinner(inputSex, R.layout.calculator_spinner_item_value,
-				Sex.values());
+		inputSex.setOptions(Sex.values());
 		initSeekBar(inputDose, drug.getValidDoses());
 		initSeekBar(inputDoseInterval, drug.getValidDosingIntervals());
-	}
-
-	private <T> void initSpinner(Spinner spinner, int layoutId, T[] array) {
-		ArrayAdapter<T> adapter = new ArrayAdapter<T>(this, layoutId, array);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
 	}
 
 	private void initSeekBar(SeekBar seekBar, int[] progressArray) {
@@ -191,26 +182,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	@Override
 	public void onCalculatorItemChange(CalculatorItem v) {
 		updateModel((View) v);
-	}
-
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-		switch (parent.getId()) {
-		case R.id.input_sex_spinner:
-			Sex sex = (Sex) parent.getSelectedItem();
-			if (sex == Sex.MALE) {
-				inputIsPregnant.setChecked(false);
-				inputIsPregnant.setEnabled(false);
-			} else {
-				inputIsPregnant.setEnabled(true);
-			}
-			break;
-		}
-		updateModel(parent);
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
 	}
 
 	@Override
@@ -250,8 +221,15 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		case R.id.input_age:
 			patient.setAge((int) ((CalculatorItemEditText) v).getValue());
 			break;
-		case R.id.input_sex_spinner:
-			patient.setSex((Sex) inputSex.getSelectedItem());
+		case R.id.input_sex:
+			Sex sex = (Sex) inputSex.getSelectedItem();
+			if (sex == Sex.MALE) {
+				inputIsPregnant.setChecked(false);
+				inputIsPregnant.setEnabled(false);
+			} else {
+				inputIsPregnant.setEnabled(true);
+			}
+			patient.setSex(sex);
 			break;
 		case R.id.input_wt:
 			patient.setActualBodyWeight(((CalculatorItemEditText) v).getValue());
@@ -349,8 +327,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 					((CheckBox) view).setChecked(false);
 				} else if (view instanceof SeekBar) {
 					setSeekBarDefault((SeekBar) view);
-				} else if (view instanceof Spinner) {
-					((Spinner) view).setSelection(0);
 				}
 
 				if (view instanceof ViewGroup)
