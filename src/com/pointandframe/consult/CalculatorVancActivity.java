@@ -29,31 +29,30 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class CalculatorVancActivity extends Activity implements IObserver,
 		TextView.OnEditorActionListener, Spinner.OnItemSelectedListener,
-		OnFocusChangeListener, OnSeekBarChangeListener, OnClickListener {
+		OnFocusChangeListener, OnSeekBarChangeListener, OnClickListener,
+		CalculatorItemEditText.OnCalculatorItemChangeListener {
 
+	// Model
 	private Patient patient;
 	private DosingRegimen regimen;
 	private IDrug drug;
 	private PKCalculator calculator;
+	
+	// Patient Detail Input
+	private CalculatorItemEditText inputAge;
+	private Spinner inputSex;
 	private EditText inputHtValue;
 	private Spinner inputHtUnit;
-	private EditText inputAgeValue;
-	private EditText inputWtValue;
-	private Spinner inputSex;
-	HashMap<SeekBar, int[]> seekBarProgressArrays;
+	private CalculatorItemEditText inputWt;
+	private CalculatorItemEditText inputSCr;
 
-	private SeekBar inputDose;
-	private SeekBar inputDoseInterval;
-	private TextView inputDoseValue;
-	private TextView inputDoseIntervalValue;
-
+	
 	private CheckBox inputIsDiabetic;
 	private CheckBox inputIsBedridden;
 	private CheckBox inputInICU;
@@ -64,7 +63,15 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	private CheckBox inputHasAids;
 	private CheckBox inputIsParaplegic;
 	private CheckBox inputIsQuadriplegic;
+	
+	// Dosing Regimen Input
+	private SeekBar inputDose;
+	private SeekBar inputDoseInterval;
+	private TextView inputDoseValue;
+	private TextView inputDoseIntervalValue;
+	HashMap<SeekBar, int[]> seekBarProgressArrays;
 
+	// Outputs
 	private TextView outputHtInches;
 	private TextView outputKel;
 	private TextView outputCrCl;
@@ -76,7 +83,8 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	private TextView outputCmaxNormal;
 	private TextView outputCmaxHypoalbumenic;
 
-	private static String TAG = "CalculatorVancActivity";
+	// Other fields
+	private final static String TAG = "CalculatorVancActivity";
 	private boolean atStartup = true;
 
 	@Override
@@ -84,6 +92,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculator_vanc);
 
+		// Model
 		patient = new Patient();
 		regimen = new DosingRegimen();
 		drug = new Vancomycin();
@@ -91,15 +100,14 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		patient.registerObserver(this);
 		regimen.registerObserver(this);
 
+		// Get Fields
+		// Input Patient Details
+		inputAge = (CalculatorItemEditText) findViewById(R.id.input_age);
+		inputSex = (Spinner) findViewById(R.id.input_sex_spinner);
 		inputHtValue = (EditText) findViewById(R.id.input_ht_value);
 		inputHtUnit = (Spinner) findViewById(R.id.ht_unit_options);
-		inputSex = (Spinner) findViewById(R.id.input_sex_spinner);
-		inputAgeValue = (EditText) findViewById(R.id.input_age_value);
-		inputWtValue = (EditText) findViewById(R.id.input_wt_value);
-		inputDose = (SeekBar) findViewById(R.id.input_dose_seek);
-		inputDoseValue = (TextView) findViewById(R.id.input_dose_value);
-		inputDoseInterval = (SeekBar) findViewById(R.id.input_dose_interval_seek);
-		inputDoseIntervalValue = (TextView) findViewById(R.id.input_dose_interval_value);
+		inputWt = (CalculatorItemEditText) findViewById(R.id.input_wt);
+		inputSCr = (CalculatorItemEditText) findViewById(R.id.input_SCr);
 
 		inputIsDiabetic = ((CheckBox) findViewById(R.id.input_isDiabetic));
 		inputIsBedridden = ((CheckBox) findViewById(R.id.input_isBedridden));
@@ -112,6 +120,13 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputIsParaplegic = ((CheckBox) findViewById(R.id.input_isParaplegic));
 		inputIsQuadriplegic = ((CheckBox) findViewById(R.id.input_isQuadriplegic));
 
+		// Input Dosing Regimen
+		inputDose = (SeekBar) findViewById(R.id.input_dose_seek);
+		inputDoseValue = (TextView) findViewById(R.id.input_dose_value);
+		inputDoseInterval = (SeekBar) findViewById(R.id.input_dose_interval_seek);
+		inputDoseIntervalValue = (TextView) findViewById(R.id.input_dose_interval_value);
+
+		// Output
 		outputHtInches = ((TextView) findViewById(R.id.output_ht_inches_value));
 		outputKel = ((TextView) findViewById(R.id.output_kel_value));
 		outputHalflife = ((TextView) findViewById(R.id.output_halflife_value));
@@ -123,12 +138,16 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		outputCmaxNormal = ((TextView) findViewById(R.id.output_Cmax_value));
 		outputCmaxHypoalbumenic = ((TextView) findViewById(R.id.output_Cmax_hypoalbumenic_value));
 
+		// Add Listeners
+		// Patient Details
+		inputAge.setOnCalculatorItemChangeListener(this);
+		inputSex.setOnItemSelectedListener(this);
 		inputHtValue.setOnEditorActionListener(this);
 		inputHtValue.setOnFocusChangeListener(this);
-		inputAgeValue.setOnEditorActionListener(this);
-		inputAgeValue.setOnFocusChangeListener(this);
-		inputWtValue.setOnEditorActionListener(this);
-		inputWtValue.setOnFocusChangeListener(this);
+		inputHtUnit.setOnItemSelectedListener(this);
+		inputWt.setOnCalculatorItemChangeListener(this);
+		inputSCr.setOnCalculatorItemChangeListener(this);
+		
 		inputIsDiabetic.setOnClickListener(this);
 		inputIsBedridden.setOnClickListener(this);
 		inputInICU.setOnClickListener(this);
@@ -139,31 +158,20 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputHasAids.setOnClickListener(this);
 		inputIsParaplegic.setOnClickListener(this);
 		inputIsQuadriplegic.setOnClickListener(this);
-
-		CalculatorItemEditText foo = (CalculatorItemEditText) findViewById(R.id.foo);
-		foo.setOnEditorActionListenter(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId,
-					KeyEvent event) {
-				Log.d(TAG, "custom view clicked. Value: " + v.getText());
-				return false;
-			}
-		});
-
-		inputHtUnit.setOnItemSelectedListener(this);
-		initSpinner(inputHtUnit, R.layout.calculator_spinner_item_unit,
-				LengthUnit.values());
-
-		inputSex.setOnItemSelectedListener(this);
+		
+		// Dosing Regimen
+		inputDose.setOnSeekBarChangeListener(this);
+		inputDoseInterval.setOnSeekBarChangeListener(this);
+		
+		
+		// Init Views
 		initSpinner(inputSex, R.layout.calculator_spinner_item_value,
 				Sex.values());
-
-		inputDose.setOnSeekBarChangeListener(this);
+		initSpinner(inputHtUnit, R.layout.calculator_spinner_item_unit,
+				LengthUnit.values());
 		initSeekBar(inputDose, drug.getValidDoses());
-
-		inputDoseInterval.setOnSeekBarChangeListener(this);
 		initSeekBar(inputDoseInterval, drug.getValidDosingIntervals());
-
+		
 		atStartup = true;
 	}
 
@@ -191,10 +199,17 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		int[] progress = seekBarProgressArrays.get(seekBar);
 		seekBar.setProgress((int) (progress.length / 2.0));
 	}
+	
+	@Override
+	public void onCalculatorItemChange(CalculatorItemEditText v) {
+		updateModel(v);
+	}
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		if (!hasFocus) {
+		if (v.getId() == R.id.input_age) {
+			Log.d(TAG, "On Focus Change");
+		} else if (!hasFocus) {
 			updateModel((TextView) v);
 		}
 	}
@@ -272,17 +287,17 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 
 	private void updateModel(View v) {
 		switch (v.getId()) {
-		case R.id.input_age_value:
-			patient.setAge(viewToInt((TextView) v));
+		case R.id.input_age:
+			patient.setAge((int) ((CalculatorItemEditText) v).getValue());
 			break;
-		case R.id.input_wt_value:
-			patient.setActualBodyWeight(viewToFloat((TextView) v));
+		case R.id.input_wt:
+			patient.setActualBodyWeight(((CalculatorItemEditText) v).getValue());
 			break;
 		case R.id.input_ht_value:
 			setPatientHeight();
 			break;
-		case R.id.input_SCr_value:
-			patient.setSCr(viewToFloat((TextView) v));
+		case R.id.input_SCr:
+			patient.setSCr(((CalculatorItemEditText) v).getValue());
 			break;
 		case R.id.input_sex_spinner:
 			patient.setSex((Sex) inputSex.getSelectedItem());
