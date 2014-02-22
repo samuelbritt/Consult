@@ -22,8 +22,6 @@
             style="?android:attr/listSeparatorTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:paddingLeft="0dp"
             android:text="@string/header_patient_details" />
 
         <com.pointandframe.consult.views.CalculatorItemEditText
@@ -53,29 +51,11 @@
                 android:gravity="right" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner
             android:id="@+id/input_ht"
-            style="@style/DataSection"
-            android:minHeight="48dp" >
-
-            <TextView
-                android:id="@+id/input_ht_label"
-                style="@style/TextAppearance.Calculator_LabelSmall"
-                android:text="@string/input_ht_label" />
-
-            <Spinner
-                android:id="@+id/ht_unit_options"
-                style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_width="48dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true" />
-
-            <EditText
-                android:id="@+id/input_ht_value"
-                style="@style/TextAppearance.Calculator_Value"
-                android:layout_alignBaseline="@id/ht_unit_options"
-                android:layout_toLeftOf="@id/ht_unit_options" />
-        </RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            calculator:labelText="@string/input_ht_label" />
 
         <com.pointandframe.consult.views.CalculatorItemEditText
             android:id="@+id/input_wt"
@@ -198,13 +178,7 @@
         <TextView
             android:id="@+id/header_dosing_regimin"
             style="?android:attr/listSeparatorTextViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="bottom"
-            android:paddingBottom="8dp"
-            android:paddingLeft="0dp"
-            android:text="@string/header_dosing_regimin" />
+			android:text="@string/header_dosing_regimin" />
 
         <RelativeLayout
             android:id="@+id/input_dose"
@@ -279,16 +253,11 @@
             android:id="@+id/header_results"
             style="?android:attr/listSeparatorTextViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="0dp"
             android:text="@string/header_results" />
 
         <RelativeLayout
             android:id="@+id/output_ht_inches"
-            style="@style/DataSection"
-            android:layout_below="@id/header_results" >
+            style="@style/DataSection" >
 
             <TextView
                 android:id="@+id/output_ht_inches_label"
@@ -298,7 +267,8 @@
             <TextView
                 android:id="@+id/output_ht_inches_unit"
                 style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_below="@id/output_ht_inches_label"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:text="@string/output_ht_inches_unit" />
 
             <TextView
@@ -321,7 +291,8 @@
             <TextView
                 android:id="@+id/output_kel_unit"
                 style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_below="@id/output_kel_label"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:text="@string/output_kel_unit" />
 
             <TextView
@@ -344,7 +315,8 @@
             <TextView
                 android:id="@+id/output_halflife_unit"
                 style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_below="@id/output_halflife_label"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:text="@string/output_halflife_unit" />
 
             <TextView
@@ -532,7 +504,6 @@
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-        <!-- </RelativeLayout> -->
     </LinearLayout>
 
 </ScrollView>

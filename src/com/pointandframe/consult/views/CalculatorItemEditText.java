@@ -1,11 +1,8 @@
 package com.pointandframe.consult.views;
 
-import com.pointandframe.consult.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +13,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class CalculatorItemEditText extends RelativeLayout implements CalculatorItem, OnEditorActionListener, OnFocusChangeListener {
+import com.pointandframe.consult.R;
+
+public class CalculatorItemEditText extends RelativeLayout implements
+		CalculatorItem, OnFocusChangeListener, OnEditorActionListener {
 	private static final String TAG = "CalculatorItemEditText";
-	private EditText value;
-	private com.pointandframe.consult.views.CalculatorItemEditText.OnCalculatorItemChangeListener onCalculatorItemChangeListener;
-	
-	public interface OnCalculatorItemChangeListener {
-		public void onCalculatorItemChange(CalculatorItemEditText v);
-	}
+	protected EditText value;
+	protected OnCalculatorItemChangeListener onCalculatorItemChangeListener;
+	protected TextView label;
+	protected TextView unit;
 
 	public CalculatorItemEditText(Context context) {
 		super(context);
@@ -47,48 +45,58 @@ public class CalculatorItemEditText extends RelativeLayout implements Calculator
 		}
 	}
 
-	public void setOnCalculatorItemChangeListener(OnCalculatorItemChangeListener listener) {
-		onCalculatorItemChangeListener = listener;
-	}
-
-	private void setupView(Context context, AttributeSet attrs) {
-
+	protected void inflate(Context context, int layoutRes) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.calculator_item_edit_text, this, true);
+		inflater.inflate(layoutRes, this, true);
+	}
 
-		TextView label = (TextView) findViewById(R.id.label);
-		TextView unit = (TextView) findViewById(R.id.unit);
-		value = (EditText) findViewById(R.id.value);
-		value.setOnFocusChangeListener(this);
-		value.setOnEditorActionListener(this);
-		
+	protected void setAttr(Context context, AttributeSet attrs) {
+		String titleText;
+		String unitText;
 		if (attrs != null) {
 			TypedArray a = context.obtainStyledAttributes(attrs,
 					R.styleable.CalculatorItem, 0, 0);
-			String titleText = a
-					.getString(R.styleable.CalculatorItem_labelText);
-			String unitText = a.getString(R.styleable.CalculatorItem_unitText);
+			titleText = a.getString(R.styleable.CalculatorItem_labelText);
+			unitText = a.getString(R.styleable.CalculatorItem_unitText);
 			a.recycle();
-			label.setText(titleText);
-			unit.setText(unitText);
+		} else {
+			titleText = context.getString(R.string.dummy_label);
+			unitText = context.getString(R.string.dummy_unit);
 		}
+		if (label != null)
+			label.setText(titleText);
+		if (unit != null)
+			unit.setText(unitText);
 	}
-	
+
+	protected void setupView(Context context, AttributeSet attrs) {
+		inflate(context, R.layout.calculator_item_edit_text);
+
+		label = (TextView) findViewById(R.id.label);
+		unit = (TextView) findViewById(R.id.unit);
+		value = (EditText) findViewById(R.id.value);
+
+		setAttr(context, attrs);
+
+		value.setOnFocusChangeListener(this);
+		value.setOnEditorActionListener(this);
+	}
+
 	@Override
 	public String getText() {
 		return value.getText().toString();
 	}
-	
+
 	@Override
 	public void setText(String s) {
 		value.setText(s);
 	}
-	
+
 	public float getValue() {
 		return getValue(0.0f);
 	}
-	
+
 	public float getValue(float defaultVal) {
 		String valStr = getText();
 		float val;
@@ -100,11 +108,15 @@ public class CalculatorItemEditText extends RelativeLayout implements Calculator
 		return val;
 	}
 
+	public void setOnCalculatorItemChangeListener(
+			OnCalculatorItemChangeListener listener) {
+		onCalculatorItemChangeListener = listener;
+	}
+
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		switch (v.getId()) {
 		case R.id.value:
-			Log.d(TAG, "On Focus Change");
 			if (!hasFocus) {
 				onCalculatorItemChangeListener.onCalculatorItemChange(this);
 			}
@@ -118,7 +130,6 @@ public class CalculatorItemEditText extends RelativeLayout implements Calculator
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		switch (v.getId()) {
 		case R.id.value:
-			Log.d(TAG, "On Editor Action");
 			if (actionId == EditorInfo.IME_ACTION_DONE
 					|| actionId == EditorInfo.IME_ACTION_NEXT) {
 				onCalculatorItemChangeListener.onCalculatorItemChange(this);

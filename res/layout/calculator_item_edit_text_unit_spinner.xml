@@ -7,17 +7,19 @@
         style="@style/TextAppearance.Calculator_LabelSmall"
         android:text="@string/dummy_label" />
 
-    <TextView
-        android:id="@+id/unit"
+    <Spinner
+        android:id="@+id/unit_options"
         style="@style/TextAppearance.Calculator_UnitSmall"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/dummy_unit" />
+        android:layout_alignParentRight="true" />
 
     <EditText
         android:id="@+id/value"
         style="@style/TextAppearance.Calculator_Value"
-        android:layout_alignBaseline="@id/unit"
-        android:layout_toLeftOf="@id/unit" />
+        android:layout_alignBaseline="@id/unit_options"
+        android:layout_toLeftOf="@id/unit_options" />
 
 </RelativeLayout>

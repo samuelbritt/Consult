@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:gravity="right"
     android:textAllCaps="true"
-    android:textColor="?android:attr/textColorPrimary" />
+    android:textColor="?android:attr/textColorPrimary"
+    android:paddingBottom="0dp"/>

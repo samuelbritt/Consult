@@ -16,8 +16,6 @@
     <string name="input_age_label">Age</string>
     <string name="input_age_unit">yr</string>
     <string name="input_sex_label">Sex</string>
-	<string name="input_sex_radio_male">Male</string>
-    <string name="input_sex_radio_female">Female</string>
 	<string name="input_ht_label">Height</string>
     <string name="input_wt_label">Weight</string>
 	<string name="input_wt_unit">kg</string>

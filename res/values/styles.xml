@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
+    <!-- Base application theme, dependent on API level. This theme is replaced by AppBaseTheme from res/values-vXX/styles.xml on newer devices. -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+        <!-- Theme customizations available in newer API levels can go in res/values-vXX/styles.xml, while customizations related to backward-compatibility can go here. -->
     </style>
 
     <!-- Application theme. -->
@@ -25,13 +18,11 @@
     </style>
 
     <style name="TextAppearance.Calculator_LabelSmall" parent="TextAppearance.Calculator_Small">
-        <item name="android:minHeight">24dip</item>
-        <!-- uncomment to align label with value -->
-        <!-- <item name="android:paddingLeft">12dip</item> -->
-        <!-- <item name="android:paddingRight">12dip</item> -->
-        <item name="android:layout_marginBottom">-4dip</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:minHeight">24dp</item>
+        
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="TextAppearance.Calculator_UnitSmall" parent="TextAppearance.Calculator_Small">
@@ -40,14 +31,15 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:paddingLeft">2dp</item>
-        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">bottom</item>
     </style>
 
     <style name="TextAppearance.Calculator_Small">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#FFAAAAAA</item>
-        <item name="android:textAllCaps">true</item>
+        <!-- <item name="android:background">@drawable/border</item> -->
     </style>
 
     <style name="TextAppearance.Calculator">
@@ -63,12 +55,18 @@
         <item name="android:gravity">right</item>
         <item name="android:inputType">phone</item>
         <item name="android:selectAllOnFocus">true</item>
+        <!-- <item name="android:background">@drawable/border</item> -->
     </style>
 
     <style name="DataSection">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
-        <!-- <item name="android:background">@drawable/border</item> -->
+        <item name="android:layout_height">?android:attr/listPreferredItemHeight</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeight</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingTop">?android:attr/listPreferredItemPaddingStart</item>
+        <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
+        
+<!--         <item name="android:background">@drawable/border</item> -->
     </style>
 
 </resources>
