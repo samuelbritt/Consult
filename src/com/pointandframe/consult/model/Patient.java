@@ -1,6 +1,10 @@
-package com.pointandframe.consult;
+package com.pointandframe.consult.model;
 
-public class Patient extends SimpleObservable {
+import com.pointandframe.consult.util.IObservable;
+import com.pointandframe.consult.util.IObserver;
+import com.pointandframe.consult.util.SimpleObservable;
+
+public class Patient implements IObservable {
 	private static double CM_PER_INCH = 2.54;
 
 	private float height_cm;
@@ -19,6 +23,8 @@ public class Patient extends SimpleObservable {
 	private boolean isParaplegic;
 	private boolean isQuadriplegic;
 
+	private IObservable oberservable;
+
 	public Patient() {
 		height_cm = 0f;
 		actualBodyWeight = 0f;
@@ -35,6 +41,8 @@ public class Patient extends SimpleObservable {
 		isBedridden = false;
 		isParaplegic = false;
 		isQuadriplegic = false;
+		
+		oberservable = new SimpleObservable();
 	}
 
 	public float getHeight_cm() {
@@ -265,6 +273,21 @@ public class Patient extends SimpleObservable {
 	
 	private void onUpdate() {
 		notifyObservers();
+	}
+
+	@Override
+	public void registerObserver(IObserver o) {
+		oberservable.registerObserver(o);
+	}
+
+	@Override
+	public void removeObserver(IObserver o) {
+		oberservable.removeObserver(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		oberservable.notifyObservers();
 	}
 
 

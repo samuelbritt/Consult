@@ -1,4 +1,4 @@
-package com.pointandframe.consult;
+package com.pointandframe.consult.model;
 
 public enum Sex {
 	MALE("Male"), FEMALE("Female");

@@ -1,13 +1,14 @@
-package com.pointandframe.consult;
+package com.pointandframe.consult.model;
+
 
 
 public class PKCalculator {
 
 	private DosingRegimen dosingRegimen;
 	private Patient patient;
-	private Drug drug;
+	private IDrug drug;
 	
-	public PKCalculator(Patient patient, Drug drug, DosingRegimen regimen) {
+	public PKCalculator(Patient patient, IDrug drug, DosingRegimen regimen) {
 		this.drug = drug;
 		this.patient = patient;
 		this.dosingRegimen = regimen;

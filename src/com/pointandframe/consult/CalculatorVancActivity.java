@@ -1,35 +1,53 @@
 package com.pointandframe.consult;
 
+import java.util.HashMap;
+
+import com.pointandframe.consult.model.DosingRegimen;
+import com.pointandframe.consult.model.IDrug;
+import com.pointandframe.consult.model.LengthUnit;
+import com.pointandframe.consult.model.PKCalculator;
+import com.pointandframe.consult.model.Patient;
+import com.pointandframe.consult.model.Sex;
+import com.pointandframe.consult.model.Vancomycin;
+import com.pointandframe.consult.util.IObservable;
+import com.pointandframe.consult.util.IObserver;
+import com.pointandframe.consult.views.CalculatorItemEditText;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class CalculatorVancActivity extends Activity implements Observer,
+public class CalculatorVancActivity extends Activity implements IObserver,
 		TextView.OnEditorActionListener, Spinner.OnItemSelectedListener,
 		OnFocusChangeListener, OnSeekBarChangeListener, OnClickListener {
 
 	private Patient patient;
 	private DosingRegimen regimen;
-	private Drug drug;
+	private IDrug drug;
 	private PKCalculator calculator;
 	private EditText inputHtValue;
 	private Spinner inputHtUnit;
 	private EditText inputAgeValue;
 	private EditText inputWtValue;
 	private Spinner inputSex;
+	HashMap<SeekBar, int[]> seekBarProgressArrays;
 
 	private SeekBar inputDose;
 	private SeekBar inputDoseInterval;
@@ -58,6 +76,7 @@ public class CalculatorVancActivity extends Activity implements Observer,
 	private TextView outputCmaxNormal;
 	private TextView outputCmaxHypoalbumenic;
 
+	private static String TAG = "CalculatorVancActivity";
 	private boolean atStartup = true;
 
 	@Override
@@ -92,7 +111,7 @@ public class CalculatorVancActivity extends Activity implements Observer,
 		inputHasAids = ((CheckBox) findViewById(R.id.input_hasAids));
 		inputIsParaplegic = ((CheckBox) findViewById(R.id.input_isParaplegic));
 		inputIsQuadriplegic = ((CheckBox) findViewById(R.id.input_isQuadriplegic));
-		
+
 		outputHtInches = ((TextView) findViewById(R.id.output_ht_inches_value));
 		outputKel = ((TextView) findViewById(R.id.output_kel_value));
 		outputHalflife = ((TextView) findViewById(R.id.output_halflife_value));
@@ -103,7 +122,7 @@ public class CalculatorVancActivity extends Activity implements Observer,
 		outputCminHypoalbumenic = ((TextView) findViewById(R.id.output_Cmin_hypoalbumenic_value));
 		outputCmaxNormal = ((TextView) findViewById(R.id.output_Cmax_value));
 		outputCmaxHypoalbumenic = ((TextView) findViewById(R.id.output_Cmax_hypoalbumenic_value));
-		
+
 		inputHtValue.setOnEditorActionListener(this);
 		inputHtValue.setOnFocusChangeListener(this);
 		inputAgeValue.setOnEditorActionListener(this);
@@ -121,32 +140,56 @@ public class CalculatorVancActivity extends Activity implements Observer,
 		inputIsParaplegic.setOnClickListener(this);
 		inputIsQuadriplegic.setOnClickListener(this);
 
+		CalculatorItemEditText foo = (CalculatorItemEditText) findViewById(R.id.foo);
+		foo.setOnEditorActionListenter(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				Log.d(TAG, "custom view clicked. Value: " + v.getText());
+				return false;
+			}
+		});
+
 		inputHtUnit.setOnItemSelectedListener(this);
-		ArrayAdapter<LengthUnit> adapter_ht_unit = new ArrayAdapter<LengthUnit>(
-				this, R.layout.calculator_spinner_item_unit,
+		initSpinner(inputHtUnit, R.layout.calculator_spinner_item_unit,
 				LengthUnit.values());
-		adapter_ht_unit
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		inputHtUnit.setAdapter(adapter_ht_unit);
 
 		inputSex.setOnItemSelectedListener(this);
-		ArrayAdapter<Sex> adapter_sex = new ArrayAdapter<Sex>(this,
-				R.layout.calculator_spinner_item_value, Sex.values());
-		adapter_sex
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		inputSex.setAdapter(adapter_sex);
+		initSpinner(inputSex, R.layout.calculator_spinner_item_value,
+				Sex.values());
 
 		inputDose.setOnSeekBarChangeListener(this);
-		inputDose.setMax(drug.getValidDoses().length - 1);
-		inputDose.setProgress((int) (drug.getValidDoses().length / 2));
+		initSeekBar(inputDose, drug.getValidDoses());
 
 		inputDoseInterval.setOnSeekBarChangeListener(this);
-		inputDoseInterval.setMax(drug.getValidDosingIntervals().length - 1);
-		inputDoseInterval
-				.setProgress((int) (drug.getValidDosingIntervals().length / 2));
+		initSeekBar(inputDoseInterval, drug.getValidDosingIntervals());
 
 		atStartup = true;
-		inputAgeValue.requestFocus();
+	}
+
+	private <T> void initSpinner(Spinner spinner, int layoutId, T[] array) {
+		ArrayAdapter<T> adapter = new ArrayAdapter<T>(this, layoutId, array);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+	}
+
+	private void initSeekBar(SeekBar seekBar, int[] progressArray) {
+		if (seekBarProgressArrays == null) {
+			seekBarProgressArrays = new HashMap<SeekBar, int[]>();
+		}
+		seekBarProgressArrays.put(seekBar, progressArray);
+		setSeekBarMax(seekBar);
+		setSeekBarDefault(seekBar);
+	}
+
+	private void setSeekBarMax(SeekBar seekBar) {
+		int[] progress = seekBarProgressArrays.get(seekBar);
+		seekBar.setMax(progress.length - 1);
+	}
+
+	private void setSeekBarDefault(SeekBar seekBar) {
+		int[] progress = seekBarProgressArrays.get(seekBar);
+		seekBar.setProgress((int) (progress.length / 2.0));
 	}
 
 	@Override
@@ -184,7 +227,7 @@ public class CalculatorVancActivity extends Activity implements Observer,
 				inputIsPregnant.setChecked(false);
 				inputIsPregnant.setEnabled(false);
 			} else {
-				inputIsPregnant.setEnabled(true);				
+				inputIsPregnant.setEnabled(true);
 			}
 			break;
 		}
@@ -193,7 +236,6 @@ public class CalculatorVancActivity extends Activity implements Observer,
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -202,18 +244,12 @@ public class CalculatorVancActivity extends Activity implements Observer,
 		switch (seekBar.getId()) {
 		case R.id.input_dose_seek:
 			inputDoseValue
-					.setText(String.valueOf(drug.getValidDoses()[progress])
-							+ " "
-							+ getResources()
-									.getString(R.string.input_dose_unit));
+					.setText(String.valueOf(drug.getValidDoses()[progress]));
 			regimen.setDose_mg(drug.getValidDoses()[progress]);
 			break;
 		case R.id.input_dose_interval_seek:
 			inputDoseIntervalValue.setText(String.valueOf(drug
-					.getValidDosingIntervals()[progress])
-					+ " "
-					+ getResources().getString(
-							R.string.input_dose_interval_unit));
+					.getValidDosingIntervals()[progress]));
 			regimen.setDosingInterval_hr(drug.getValidDosingIntervals()[progress]);
 			break;
 		default:
@@ -223,21 +259,17 @@ public class CalculatorVancActivity extends Activity implements Observer,
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onClick(View v) {
 		updateModel(v);
 	}
-	
+
 	private void updateModel(View v) {
 		switch (v.getId()) {
 		case R.id.input_age_value:
@@ -255,40 +287,46 @@ public class CalculatorVancActivity extends Activity implements Observer,
 		case R.id.input_sex_spinner:
 			patient.setSex((Sex) inputSex.getSelectedItem());
 		case R.id.input_isDiabetic:
-		    patient.setDiabetic(inputIsDiabetic.isChecked());
-		    break;
+			patient.setDiabetic(inputIsDiabetic.isChecked());
+			break;
 		case R.id.input_isBedridden:
-		    patient.setBedridden(inputIsBedridden.isChecked());
-		    break;
+			patient.setBedridden(inputIsBedridden.isChecked());
+			break;
 		case R.id.input_inICU:
-		    patient.setIcu(inputInICU.isChecked());
-		    break;
+			patient.setIcu(inputInICU.isChecked());
+			break;
 		case R.id.input_isPregnant:
-		    patient.setPregnant(inputIsPregnant.isChecked());
-		    break;
+			patient.setPregnant(inputIsPregnant.isChecked());
+			break;
 		case R.id.input_hasAcuteRenalFailure:
-		    patient.setAcuteRenalFailure(inputHasAcuteRenalFailure.isChecked());
-		    break;
+			patient.setAcuteRenalFailure(inputHasAcuteRenalFailure.isChecked());
+			break;
 		case R.id.input_hasEndStageRenalDisease:
-		    patient.setEndStageRenalDisease(inputHasEndStageRenalDisease.isChecked());
-		    break;
+			patient.setEndStageRenalDisease(inputHasEndStageRenalDisease
+					.isChecked());
+			break;
 		case R.id.input_hasCancer:
-		    patient.setCancer(inputHasCancer.isChecked());
-		    break;
+			patient.setCancer(inputHasCancer.isChecked());
+			break;
 		case R.id.input_hasAids:
-		    patient.setAids(inputHasAids.isChecked());
-		    break;
+			patient.setAids(inputHasAids.isChecked());
+			break;
 		case R.id.input_isParaplegic:
-		    patient.setParaplegic(inputIsParaplegic.isChecked());
-		    break;
+			patient.setParaplegic(inputIsParaplegic.isChecked());
+			break;
 		case R.id.input_isQuadriplegic:
-		    patient.setQuadriplegic(inputIsQuadriplegic.isChecked());
-		    break;
+			patient.setQuadriplegic(inputIsQuadriplegic.isChecked());
+			break;
 		}
 	}
 
 	@Override
-	public void notify(Observable o) {
+	public void notify(IObservable o) {
+		Log.d("CalculatorVanc", "Being Notified");
+		updateOutputViews();
+	}
+
+	private void updateOutputViews() {
 		outputHtInches.setText(String.format("%.2f", patient.getHeight_in()));
 		outputKel.setText(String.format("%.3f", calculator.getKElimination()));
 		outputHalflife.setText(String.format("%.2f", calculator.getHalflife()));
@@ -349,12 +387,41 @@ public class CalculatorVancActivity extends Activity implements Observer,
 		return val;
 	}
 
+	private void clearForm(ViewGroup group) {
+		{
+			for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+				View view = group.getChildAt(i);
+				if (view instanceof EditText) {
+					((EditText) view).getText().clear();
+				} else if (view instanceof CheckBox) {
+					((CheckBox) view).setChecked(false);
+				} else if (view instanceof SeekBar) {
+					setSeekBarDefault((SeekBar) view);
+				} else if (view instanceof Spinner) {
+					((Spinner) view).setSelection(0);
+				}
+
+				if (view instanceof ViewGroup)
+					clearForm((ViewGroup) view);
+			}
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.calculator_vanc, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_clear:
+			clearForm((ViewGroup) findViewById(R.id.MainView));
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 }

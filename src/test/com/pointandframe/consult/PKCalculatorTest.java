@@ -1,9 +1,15 @@
-package com.pointandframe.consult;
+package test.com.pointandframe.consult;
+
+import com.pointandframe.consult.model.DosingRegimen;
+import com.pointandframe.consult.model.IDrug;
+import com.pointandframe.consult.model.PKCalculator;
+import com.pointandframe.consult.model.Patient;
+import com.pointandframe.consult.model.Vancomycin;
 
 import junit.framework.TestCase;
 
 public class PKCalculatorTest extends TestCase {
-	private Drug drug;
+	private IDrug drug;
 	private Patient patient1;
 	private DosingRegimen regimen1;
 	private static double TOL = 0.01;

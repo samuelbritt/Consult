@@ -1,12 +1,13 @@
-package com.pointandframe.consult;
+package com.pointandframe.consult.model;
 
-public class Vancomycin implements Drug {
+
+public class Vancomycin implements IDrug {
 
 		private static float NORMAL_VD = 0.75f;
 		private static float OBESE_VD = 0.56f;
 		private static float HYPOALBUMENIC_VD = 0.80f;
-		private static float K_ELIMANATION_SLOPE = 0.00083f;
-		private static float K_ELIMANATION_INTERCEPT = 0.0044f;
+		private static float K_ELIMINATION_SLOPE = 0.00083f;
+		private static float K_ELIMINATION_INTERCEPT = 0.0044f;
 
 		private static int[] validDoses = { 250, 500, 750, 1000, 1250, 1500, 1750, 2000,
 				2250, 2500, 2750, 3000 };
@@ -17,7 +18,7 @@ public class Vancomycin implements Drug {
 	
 	@Override
 	public float getKElimination(Patient patient) {
-		return patient.getCrCl() * K_ELIMANATION_SLOPE + K_ELIMANATION_INTERCEPT;
+		return patient.getCrCl() * K_ELIMINATION_SLOPE + K_ELIMINATION_INTERCEPT;
 	}
 
 	@Override

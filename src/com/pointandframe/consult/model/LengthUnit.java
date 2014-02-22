@@ -1,4 +1,4 @@
-package com.pointandframe.consult;
+package com.pointandframe.consult.model;
 
 public enum LengthUnit {
 	INCH("in"), CENTIMETER("cm");

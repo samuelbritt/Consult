@@ -1,6 +1,7 @@
-package com.pointandframe.consult;
+package com.pointandframe.consult.model;
 
-public interface Drug {
+
+public interface IDrug {
 
 	public float getKElimination(Patient patient);
 	public float getHalfLife(Patient patient);
