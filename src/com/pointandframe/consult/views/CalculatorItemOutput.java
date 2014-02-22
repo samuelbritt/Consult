@@ -1,13 +1,11 @@
 package com.pointandframe.consult.views;
 
-import com.pointandframe.consult.R;
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.pointandframe.consult.R;
 
 public class CalculatorItemOutput extends RelativeLayout implements
 		CalculatorItem {
@@ -15,6 +13,7 @@ public class CalculatorItemOutput extends RelativeLayout implements
 	protected TextView value;
 	private TextView label;
 	private TextView unit;
+	private static final int LAYOUT_ID = R.layout.calculator_item_output;
 
 	public CalculatorItemOutput(Context context) {
 		super(context);
@@ -39,46 +38,14 @@ public class CalculatorItemOutput extends RelativeLayout implements
 	}
 
 	protected void setupView(Context context, AttributeSet attrs) {
-		inflate(context, R.layout.calculator_item_output);
+		CalculatorItemInitializer init = new CalculatorItemInitializer(this);
+		init.inflate(context);
 
 		label = (TextView) findViewById(R.id.label);
 		unit = (TextView) findViewById(R.id.unit);
 		value = (TextView) findViewById(R.id.value);
 
-		setAttr(context, attrs);
-
-	}
-
-	protected void inflate(Context context, int layoutRes) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(layoutRes, this, true);
-	}
-
-	protected void setAttr(Context context, AttributeSet attrs) {
-		String titleText;
-		boolean titleAllCaps;
-		String unitText;
-		if (attrs != null) {
-			TypedArray a = context.obtainStyledAttributes(attrs,
-					R.styleable.CalculatorItem, 0, 0);
-			titleText = a.getString(R.styleable.CalculatorItem_labelText);
-			titleAllCaps = a.getBoolean(
-					R.styleable.CalculatorItem_labelAllCaps, true);
-			unitText = a.getString(R.styleable.CalculatorItem_unitText);
-			a.recycle();
-		} else {
-			titleText = context.getString(R.string.dummy_label);
-			titleAllCaps = true;
-			unitText = context.getString(R.string.dummy_unit);
-		}
-		if (label != null) {
-			label.setText(titleText);
-			label.setAllCaps(titleAllCaps);
-		}
-		if (unit != null) {
-			unit.setText(unitText);
-		}
+		init.setAttr(context, attrs);
 	}
 
 	@Override
@@ -97,6 +64,21 @@ public class CalculatorItemOutput extends RelativeLayout implements
 
 	public void setValue(String formatString, float f) {
 		value.setText(String.format("%.2f", f));
+	}
+
+	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
+
+	@Override
+	public TextView getLabel() {
+		return label;
+	}
+
+	@Override
+	public TextView getUnit() {
+		return unit;
 	}
 
 }

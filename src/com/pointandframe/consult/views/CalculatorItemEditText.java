@@ -1,10 +1,8 @@
 package com.pointandframe.consult.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
@@ -18,10 +16,12 @@ import com.pointandframe.consult.R;
 public class CalculatorItemEditText extends RelativeLayout implements
 		CalculatorItem, OnFocusChangeListener, OnEditorActionListener {
 	private static final String TAG = "CalculatorItemEditText";
+	private static final int LAYOUT_ID = R.layout.calculator_item_edit_text;
 	protected EditText value;
 	protected OnCalculatorItemChangeListener onCalculatorItemChangeListener;
 	protected TextView label;
 	protected TextView unit;
+	
 
 	public CalculatorItemEditText(Context context) {
 		super(context);
@@ -46,41 +46,18 @@ public class CalculatorItemEditText extends RelativeLayout implements
 	}
 
 	protected void setupView(Context context, AttributeSet attrs) {
-		inflate(context, R.layout.calculator_item_edit_text);
+		CalculatorItemInitializer init = new CalculatorItemInitializer(this);
+		init.inflate(context);
+
 
 		label = (TextView) findViewById(R.id.label);
 		unit = (TextView) findViewById(R.id.unit);
 		value = (EditText) findViewById(R.id.value);
 
-		setAttr(context, attrs);
+		init.setAttr(context, attrs);
 
 		value.setOnFocusChangeListener(this);
 		value.setOnEditorActionListener(this);
-	}
-
-	protected void inflate(Context context, int layoutRes) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(layoutRes, this, true);
-	}
-
-	protected void setAttr(Context context, AttributeSet attrs) {
-		String titleText;
-		String unitText;
-		if (attrs != null) {
-			TypedArray a = context.obtainStyledAttributes(attrs,
-					R.styleable.CalculatorItem, 0, 0);
-			titleText = a.getString(R.styleable.CalculatorItem_labelText);
-			unitText = a.getString(R.styleable.CalculatorItem_unitText);
-			a.recycle();
-		} else {
-			titleText = context.getString(R.string.dummy_label);
-			unitText = context.getString(R.string.dummy_unit);
-		}
-		if (label != null)
-			label.setText(titleText);
-		if (unit != null)
-			unit.setText(unitText);
 	}
 
 	@Override
@@ -142,6 +119,21 @@ public class CalculatorItemEditText extends RelativeLayout implements
 			break;
 		}
 		return false;
+	}
+	
+	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
+
+	@Override
+	public TextView getLabel() {
+		return label;
+	}
+
+	@Override
+	public TextView getUnit() {
+		return unit;
 	}
 
 }

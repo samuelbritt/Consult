@@ -17,6 +17,7 @@ public class CalculatorItemEditTextUnitSpinner extends CalculatorItemEditText
 		implements OnItemSelectedListener {
 
 	private static final String TAG = "CalculatorItemEditTextUnitSpinner";
+	private static final int LAYOUT_ID = R.layout.calculator_item_edit_text_unit_spinner;
 	private Spinner unitSpinner;
 	private boolean atStartup;
 
@@ -38,13 +39,14 @@ public class CalculatorItemEditTextUnitSpinner extends CalculatorItemEditText
 
 	@Override
 	protected void setupView(Context context, AttributeSet attrs) {
-		inflate(context, R.layout.calculator_item_edit_text_unit_spinner);
+		CalculatorItemInitializer init = new CalculatorItemInitializer(this);
+		init.inflate(context);
 
 		label = (TextView) findViewById(R.id.label);
 		value = (EditText) findViewById(R.id.value);
 		unitSpinner = (Spinner) findViewById(R.id.unit_options);
 
-		setAttr(context, attrs);
+		init.setAttr(context, attrs);
 
 		value.setOnFocusChangeListener(this);
 		value.setOnEditorActionListener(this);
@@ -82,5 +84,18 @@ public class CalculatorItemEditTextUnitSpinner extends CalculatorItemEditText
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
 
+	@Override
+	public TextView getLabel() {
+		return label;
+	}
+
+	@Override
+	public TextView getUnit() {
+		return null;
+	}
 }

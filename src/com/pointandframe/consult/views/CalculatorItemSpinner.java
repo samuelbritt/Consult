@@ -19,6 +19,7 @@ import android.widget.TextView;
 public class CalculatorItemSpinner extends RelativeLayout implements
 		CalculatorItem, OnItemSelectedListener {
 	private static final String TAG = "CalculatorItemEditText";
+	private static final int LAYOUT_ID = R.layout.calculator_item_spinner;
 	protected Spinner value;
 	protected OnCalculatorItemChangeListener onCalculatorItemChangeListener;
 	protected TextView label;
@@ -46,41 +47,22 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 	}
 
 	private void setupView(Context context, AttributeSet attrs) {
-		inflate(context, R.layout.calculator_item_spinner);
+		CalculatorItemInitializer init = new CalculatorItemInitializer(this);
+		init.inflate(context);
 
 		label = (TextView) findViewById(R.id.label);
 		value = (Spinner) findViewById(R.id.value);
 
-		setAttr(context, attrs);
+		init.setAttr(context, attrs);
 
 		value.setOnItemSelectedListener(this);
-	}
-
-	protected void inflate(Context context, int layoutRes) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(layoutRes, this, true);
-	}
-
-	private void setAttr(Context context, AttributeSet attrs) {
-		String titleText;
-		if (attrs != null) {
-			TypedArray a = context.obtainStyledAttributes(attrs,
-					R.styleable.CalculatorItem, 0, 0);
-			titleText = a.getString(R.styleable.CalculatorItem_labelText);
-			a.recycle();
-		} else {
-			titleText = context.getString(R.string.dummy_label);
-		}
-		if (label != null)
-			label.setText(titleText);
 	}
 
 	@Override
 	public String getText() {
 		return value.getSelectedItem().toString();
 	}
-	
+
 	public Object getSelectedItem() {
 		return value.getSelectedItem();
 	}
@@ -112,5 +94,20 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+
+	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
+
+	@Override
+	public TextView getLabel() {
+		return label;
+	}
+
+	@Override
+	public TextView getUnit() {
+		return null;
 	}
 }
