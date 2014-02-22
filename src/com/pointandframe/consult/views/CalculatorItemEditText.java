@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class CalculatorItemEditText extends RelativeLayout {
 	EditText value;
+	OnEditorActionListener listener;
 
 	public CalculatorItemEditText(Context context) {
 		super(context);
@@ -25,6 +27,11 @@ public class CalculatorItemEditText extends RelativeLayout {
 		}
 	}
 	
+	public void setOnEditorActionListenter(OnEditorActionListener listener) {
+		this.listener = listener;
+		value.setOnEditorActionListener(listener);
+	}
+
 	private void setupView(Context context, AttributeSet attrs) {
 		TypedArray a = context.obtainStyledAttributes(attrs,
 		        R.styleable.CalculatorItem, 0, 0);

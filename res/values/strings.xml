@@ -7,6 +7,8 @@
     <string name="dummy_label">Label</string>
     <string name="dummy_unit">unit</string>
     
+    <string name="action_clear">Clear</string>
+    
     <string name="header_patient_details">Patient Details</string>
     <string name="header_dosing_regimin">Dosing Regimen</string>
     <string name="header_results">Results</string>

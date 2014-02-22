@@ -1,6 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/action_clear"
+        android:icon="@drawable/ic_notify_clear"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_clear"/>
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
