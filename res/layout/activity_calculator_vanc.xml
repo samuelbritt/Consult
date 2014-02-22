@@ -248,75 +248,28 @@
             calculator:labelText="@string/output_ht_inches_label"
             calculator:unitText="@string/output_ht_inches_unit" />
 
-        <RelativeLayout
+        <com.pointandframe.consult.views.CalculatorItemOutput
             android:id="@+id/output_kel"
-            style="@style/DataSection" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            calculator:labelAllCaps="false"
+            calculator:labelText="@string/output_kel_label"
+            calculator:unitText="@string/output_kel_unit" />
 
-            <TextView
-                android:id="@+id/output_kel_label"
-                style="@style/TextAppearance.Calculator_LabelSmall"
-                android:text="@string/output_kel_label"
-                android:textAllCaps="false" />
-
-            <TextView
-                android:id="@+id/output_kel_unit"
-                style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/output_kel_unit" />
-
-            <TextView
-                android:id="@+id/output_kel_value"
-                style="@style/TextAppearance.Calculator_Value"
-                android:layout_alignBaseline="@id/output_kel_unit"
-                android:layout_toLeftOf="@id/output_kel_unit" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <com.pointandframe.consult.views.CalculatorItemOutput
             android:id="@+id/output_halflife"
-            style="@style/DataSection" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            calculator:labelAllCaps="false"
+            calculator:labelText="@string/output_halflife_label"
+            calculator:unitText="@string/output_halflife_unit" />
 
-            <TextView
-                android:id="@+id/output_halflife_label"
-                style="@style/TextAppearance.Calculator_LabelSmall"
-                android:text="@string/output_halflife_label"
-                android:textAllCaps="false" />
-
-            <TextView
-                android:id="@+id/output_halflife_unit"
-                style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/output_halflife_unit" />
-
-            <TextView
-                android:id="@+id/output_halflife_value"
-                style="@style/TextAppearance.Calculator_Value"
-                android:layout_alignBaseline="@id/output_halflife_unit"
-                android:layout_toLeftOf="@id/output_halflife_unit" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <com.pointandframe.consult.views.CalculatorItemOutput
             android:id="@+id/output_CrCl"
-            style="@style/DataSection" >
-
-            <TextView
-                android:id="@+id/output_CrCl_label"
-                style="@style/TextAppearance.Calculator_LabelSmall"
-                android:text="@string/output_CrCl_label" />
-
-            <TextView
-                android:id="@+id/output_CrCl_unit"
-                style="@style/TextAppearance.Calculator_UnitSmall"
-                android:layout_below="@id/output_CrCl_label"
-                android:text="@string/output_CrCl_unit" />
-
-            <TextView
-                android:id="@+id/output_CrCl_value"
-                style="@style/TextAppearance.Calculator_Value"
-                android:layout_alignBaseline="@id/output_CrCl_unit"
-                android:layout_toLeftOf="@id/output_CrCl_unit" />
-        </RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            calculator:labelText="@string/output_CrCl_label"
+            calculator:unitText="@string/output_CrCl_unit" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -333,68 +286,29 @@
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
-                <RelativeLayout style="@style/DataSection" >
+                <com.pointandframe.consult.views.CalculatorItemOutput
+                    android:id="@+id/output_Vd_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    calculator:labelAllCaps="false"
+                    calculator:labelText="@string/output_Vd_label"
+                    calculator:unitText="@string/output_Vd_unit" />
 
-                    <TextView
-                        android:id="@+id/output_Vd_label"
-                        style="@style/TextAppearance.Calculator_LabelSmall"
-                        android:text="@string/output_Vd_label"
-                        android:textAllCaps="false" />
+                <com.pointandframe.consult.views.CalculatorItemOutput
+                    android:id="@+id/output_Cmin_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    calculator:labelAllCaps="false"
+                    calculator:labelText="@string/output_Cmin_label"
+                    calculator:unitText="@string/output_Cmin_unit" />
 
-                    <TextView
-                        android:id="@+id/output_Vd_unit"
-                        style="@style/TextAppearance.Calculator_UnitSmall"
-                        android:layout_below="@id/output_Vd_label"
-                        android:text="@string/output_Vd_unit" />
-
-                    <TextView
-                        android:id="@+id/output_Vd_value"
-                        style="@style/TextAppearance.Calculator_Value"
-                        android:layout_alignBaseline="@id/output_Vd_unit"
-                        android:layout_toLeftOf="@id/output_Vd_unit" />
-                </RelativeLayout>
-
-                <RelativeLayout style="@style/DataSection" >
-
-                    <TextView
-                        android:id="@+id/output_Cmin_label"
-                        style="@style/TextAppearance.Calculator_LabelSmall"
-                        android:text="@string/output_Cmin_label"
-                        android:textAllCaps="false" />
-
-                    <TextView
-                        android:id="@+id/output_Cmin_unit"
-                        style="@style/TextAppearance.Calculator_UnitSmall"
-                        android:layout_below="@id/output_Cmin_label"
-                        android:text="@string/output_Cmin_unit" />
-
-                    <TextView
-                        android:id="@+id/output_Cmin_value"
-                        style="@style/TextAppearance.Calculator_Value"
-                        android:layout_alignBaseline="@id/output_Cmin_unit"
-                        android:layout_toLeftOf="@id/output_Cmin_unit" />
-                </RelativeLayout>
-
-                <RelativeLayout style="@style/DataSection" >
-
-                    <TextView
-                        android:id="@+id/output_Cmax_label"
-                        style="@style/TextAppearance.Calculator_LabelSmall"
-                        android:text="@string/output_Cmax_label"
-                        android:textAllCaps="false" />
-
-                    <TextView
-                        android:id="@+id/output_Cmax_unit"
-                        style="@style/TextAppearance.Calculator_UnitSmall"
-                        android:layout_below="@id/output_Cmax_label"
-                        android:text="@string/output_Cmax_unit" />
-
-                    <TextView
-                        android:id="@+id/output_Cmax_value"
-                        style="@style/TextAppearance.Calculator_Value"
-                        android:layout_alignBaseline="@id/output_Cmax_unit"
-                        android:layout_toLeftOf="@id/output_Cmax_unit" />
-                </RelativeLayout>
+                <com.pointandframe.consult.views.CalculatorItemOutput
+                    android:id="@+id/output_Cmax_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    calculator:labelAllCaps="false"
+                    calculator:labelText="@string/output_Cmax_label"
+                    calculator:unitText="@string/output_Cmax_unit" />
             </LinearLayout>
 
             <LinearLayout
@@ -405,75 +319,30 @@
                 android:orientation="vertical"
                 android:visibility="gone" >
 
-                <RelativeLayout
+                <com.pointandframe.consult.views.CalculatorItemOutput
+                    android:id="@+id/output_Vd_hypoalbumenic"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" >
+                    android:layout_height="wrap_content"
+                    calculator:labelAllCaps="false"
+                    calculator:labelText="@string/output_Vd_label"
+                    calculator:unitText="@string/output_Vd_unit" />
 
-                    <TextView
-                        android:id="@+id/output_Vd_hypoalbumenic_label"
-                        style="@style/TextAppearance.Calculator_LabelSmall"
-                        android:text="@string/output_Vd_label"
-                        android:textAllCaps="false"
-                        android:visibility="invisible" />
+                <com.pointandframe.consult.views.CalculatorItemOutput
+                    android:id="@+id/output_Cmin_hypoalbumenic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    calculator:labelAllCaps="false"
+                    calculator:labelText="@string/output_Cmin_label"
+                    calculator:unitText="@string/output_Cmin_unit" />
 
-                    <TextView
-                        android:id="@+id/output_Vd_hypoalbumenic_unit"
-                        style="@style/TextAppearance.Calculator_UnitSmall"
-                        android:layout_below="@id/output_Vd_hypoalbumenic_label"
-                        android:text="@string/output_Vd_unit" />
-
-                    <TextView
-                        android:id="@+id/output_Vd_hypoalbumenic_value"
-                        style="@style/TextAppearance.Calculator_Value"
-                        android:layout_alignBaseline="@id/output_Vd_hypoalbumenic_unit"
-                        android:layout_toLeftOf="@id/output_Vd_hypoalbumenic_unit" />
-                </RelativeLayout>
-
-                <RelativeLayout style="@style/DataSection" >
-
-                    <TextView
-                        android:id="@+id/output_Cmin_hypoalbumenic_label"
-                        style="@style/TextAppearance.Calculator_LabelSmall"
-                        android:text="@string/output_Cmin_label"
-                        android:textAllCaps="false"
-                        android:visibility="invisible" />
-
-                    <TextView
-                        android:id="@+id/output_Cmin_hypoalbumenic_unit"
-                        style="@style/TextAppearance.Calculator_UnitSmall"
-                        android:layout_below="@id/output_Cmin_hypoalbumenic_label"
-                        android:text="@string/output_Cmin_unit" />
-
-                    <TextView
-                        android:id="@+id/output_Cmin_hypoalbumenic_value"
-                        style="@style/TextAppearance.Calculator_Value"
-                        android:layout_alignBaseline="@id/output_Cmin_hypoalbumenic_unit"
-                        android:layout_toLeftOf="@id/output_Cmin_hypoalbumenic_unit" />
-                </RelativeLayout>
-
-                <RelativeLayout style="@style/DataSection" >
-
-                    <TextView
-                        android:id="@+id/output_Cmax_hypoalbumenic_label"
-                        style="@style/TextAppearance.Calculator_LabelSmall"
-                        android:text="@string/output_Cmax_label"
-                        android:textAllCaps="false"
-                        android:visibility="invisible" />
-
-                    <TextView
-                        android:id="@+id/output_Cmax_hypoalbumenic_unit"
-                        style="@style/TextAppearance.Calculator_UnitSmall"
-                        android:layout_below="@id/output_Cmax_hypoalbumenic_label"
-                        android:text="@string/output_Cmax_unit" />
-
-                    <TextView
-                        android:id="@+id/output_Cmax_hypoalbumenic_value"
-                        style="@style/TextAppearance.Calculator_Value"
-                        android:layout_alignBaseline="@id/output_Cmax_hypoalbumenic_unit"
-                        android:layout_toLeftOf="@id/output_Cmax_hypoalbumenic_unit" />
-                </RelativeLayout>
+                <com.pointandframe.consult.views.CalculatorItemOutput
+                    android:id="@+id/output_Cmax_hypoalbumenic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    calculator:labelAllCaps="false"
+                    calculator:labelText="@string/output_Cmax_label"
+                    calculator:unitText="@string/output_Cmax_unit" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-</ScrollView>
+</ScrollView>

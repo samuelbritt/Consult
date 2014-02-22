@@ -68,15 +68,15 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 
 	// Outputs
 	private CalculatorItemOutput outputHtInches;
-	private TextView outputKel;
-	private TextView outputCrCl;
-	private TextView outputHalflife;
-	private TextView outputVdNormal;
-	private TextView outputVdHypoalbumenic;
-	private TextView outputCminNormal;
-	private TextView outputCminHypoalbumenic;
-	private TextView outputCmaxNormal;
-	private TextView outputCmaxHypoalbumenic;
+	private CalculatorItemOutput outputKel;
+	private CalculatorItemOutput outputCrCl;
+	private CalculatorItemOutput outputHalflife;
+	private CalculatorItemOutput outputVdNormal;
+	private CalculatorItemOutput outputVdHypoalbumenic;
+	private CalculatorItemOutput outputCminNormal;
+	private CalculatorItemOutput outputCminHypoalbumenic;
+	private CalculatorItemOutput outputCmaxNormal;
+	private CalculatorItemOutput outputCmaxHypoalbumenic;
 
 	// Other fields
 	private final static String TAG = "CalculatorVancActivity";
@@ -121,15 +121,15 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 
 		// Output
 		outputHtInches = ((CalculatorItemOutput) findViewById(R.id.output_ht_inches));
-		outputKel = ((TextView) findViewById(R.id.output_kel_value));
-		outputHalflife = ((TextView) findViewById(R.id.output_halflife_value));
-		outputCrCl = ((TextView) findViewById(R.id.output_CrCl_value));
-		outputVdNormal = ((TextView) findViewById(R.id.output_Vd_value));
-		outputVdHypoalbumenic = ((TextView) findViewById(R.id.output_Vd_hypoalbumenic_value));
-		outputCminNormal = ((TextView) findViewById(R.id.output_Cmin_value));
-		outputCminHypoalbumenic = ((TextView) findViewById(R.id.output_Cmin_hypoalbumenic_value));
-		outputCmaxNormal = ((TextView) findViewById(R.id.output_Cmax_value));
-		outputCmaxHypoalbumenic = ((TextView) findViewById(R.id.output_Cmax_hypoalbumenic_value));
+		outputKel = ((CalculatorItemOutput) findViewById(R.id.output_kel));
+		outputHalflife = ((CalculatorItemOutput) findViewById(R.id.output_halflife));
+		outputCrCl = ((CalculatorItemOutput) findViewById(R.id.output_CrCl));
+		outputVdNormal = ((CalculatorItemOutput) findViewById(R.id.output_Vd_normal));
+		outputVdHypoalbumenic = ((CalculatorItemOutput) findViewById(R.id.output_Vd_hypoalbumenic));
+		outputCminNormal = ((CalculatorItemOutput) findViewById(R.id.output_Cmin_normal));
+		outputCminHypoalbumenic = ((CalculatorItemOutput) findViewById(R.id.output_Cmin_hypoalbumenic));
+		outputCmaxNormal = ((CalculatorItemOutput) findViewById(R.id.output_Cmax_normal));
+		outputCmaxHypoalbumenic = ((CalculatorItemOutput) findViewById(R.id.output_Cmax_hypoalbumenic));
 
 		// Add Listeners
 		// Patient Details
@@ -283,22 +283,20 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 
 	private void updateOutputViews() {
 		outputHtInches.setValue(patient.getHeight_in());
-		outputKel.setText(String.format("%.3f", calculator.getKElimination()));
-		outputHalflife.setText(String.format("%.2f", calculator.getHalflife()));
-		outputCrCl.setText(String.format("%.2f", patient.getCrCl()));
+		outputKel.setValue("%.3f", calculator.getKElimination());
+		outputHalflife.setValue(calculator.getHalflife());
+		outputCrCl.setValue(patient.getCrCl());
 
 		float vd = calculator.getNormalVd();
-		outputVdNormal.setText(String.format("%.2f", vd));
-		outputCminNormal.setText(String.format("%.2f", calculator.getCmin(vd)));
-		outputCmaxNormal.setText(String.format("%.2f", calculator.getCmax(vd)));
+		outputVdNormal.setValue(vd);
+		outputCminNormal.setValue(((float) calculator.getCmin(vd)));
+		outputCmaxNormal.setValue(((float) calculator.getCmax(vd)));
 
 		if (patient.inHypoAlbumenicState()) {
 			vd = calculator.getHypoAlbumenicVd();
-			outputVdHypoalbumenic.setText(String.format("%.2f", vd));
-			outputCminHypoalbumenic.setText(String.format("%.2f",
-					calculator.getCmin(vd)));
-			outputCmaxHypoalbumenic.setText(String.format("%.2f",
-					calculator.getCmax(vd)));
+			outputVdHypoalbumenic.setValue(vd);
+			outputCminHypoalbumenic.setValue(((float) calculator.getCmin(vd)));
+			outputCmaxHypoalbumenic.setValue(((float) calculator.getCmax(vd)));
 			findViewById(R.id.output_hypoalbumenic).setVisibility(View.VISIBLE);
 		} else {
 			findViewById(R.id.output_hypoalbumenic).setVisibility(View.GONE);

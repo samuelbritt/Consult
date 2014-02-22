@@ -63,7 +63,7 @@ public class CalculatorItemOutput extends RelativeLayout implements
 	}
 
 	public void setValue(String formatString, float f) {
-		value.setText(String.format("%.2f", f));
+		value.setText(String.format(formatString, f));
 	}
 
 	@Override
