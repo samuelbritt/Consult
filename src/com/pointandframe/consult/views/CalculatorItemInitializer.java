@@ -23,15 +23,15 @@ public class CalculatorItemInitializer {
 	}
 
 	public void setAttr(Context context, AttributeSet attrs) {
-		String titleText;
+		CharSequence titleText;
 		boolean titleAllCaps;
-		String unitText;
+		CharSequence unitText;
 		
 		if (attrs != null) {
 			TypedArray a = context.obtainStyledAttributes(attrs,
 					R.styleable.CalculatorItem, 0, 0);
-			titleText = a.getString(R.styleable.CalculatorItem_labelText);
-			unitText = a.getString(R.styleable.CalculatorItem_unitText);
+			titleText = a.getText(R.styleable.CalculatorItem_labelText);
+			unitText = a.getText(R.styleable.CalculatorItem_unitText);
 			titleAllCaps = a.getBoolean(
 					R.styleable.CalculatorItem_labelAllCaps, true);
 			a.recycle();
