@@ -43,13 +43,14 @@ public class CalculatorItemEditTextUnitSpinner extends CalculatorItemEditText
 		init.inflate(context);
 
 		label = (TextView) findViewById(R.id.label);
-		value = (EditText) findViewById(R.id.value);
+		value = (KeyChangeListenerEditText) findViewById(R.id.value);
 		unitSpinner = (Spinner) findViewById(R.id.unit_options);
 
 		init.setAttr(context, attrs);
 
 		value.setOnFocusChangeListener(this);
 		value.setOnEditorActionListener(this);
+		value.setOnKeyChangeListener(this);
 		unitSpinner.setOnItemSelectedListener(this);
 		atStartup = true;
 	}

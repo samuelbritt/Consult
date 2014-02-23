@@ -16,7 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
-    <EditText
+    <com.pointandframe.consult.views.KeyChangeListenerEditText
         android:id="@+id/value"
         style="@style/TextAppearance.Calculator_Value"
         android:layout_alignBaseline="@id/unit_options"

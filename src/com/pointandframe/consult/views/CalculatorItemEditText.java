@@ -6,22 +6,22 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.pointandframe.consult.R;
+import com.pointandframe.consult.views.KeyChangeListenerEditText.OnKeyChangeListener;
 
 public class CalculatorItemEditText extends RelativeLayout implements
-		CalculatorItem, OnFocusChangeListener, OnEditorActionListener {
+		CalculatorItem, OnFocusChangeListener, OnEditorActionListener,
+		OnKeyChangeListener {
 	private static final String TAG = "CalculatorItemEditText";
 	private static final int LAYOUT_ID = R.layout.calculator_item_edit_text;
-	protected EditText value;
 	protected OnCalculatorItemChangeListener onCalculatorItemChangeListener;
+	protected KeyChangeListenerEditText value;
 	protected TextView label;
 	protected TextView unit;
-	
 
 	public CalculatorItemEditText(Context context) {
 		super(context);
@@ -49,15 +49,15 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		CalculatorItemInitializer init = new CalculatorItemInitializer(this);
 		init.inflate(context);
 
-
 		label = (TextView) findViewById(R.id.label);
 		unit = (TextView) findViewById(R.id.unit);
-		value = (EditText) findViewById(R.id.value);
+		value = (KeyChangeListenerEditText) findViewById(R.id.value);
 
 		init.setAttr(context, attrs);
 
 		value.setOnFocusChangeListener(this);
 		value.setOnEditorActionListener(this);
+		value.setOnKeyChangeListener(this);
 	}
 
 	@Override
@@ -90,12 +90,18 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		onCalculatorItemChangeListener = listener;
 	}
 
+	private void notifyListener() {
+		if (onCalculatorItemChangeListener != null) {
+			onCalculatorItemChangeListener.onCalculatorItemChange(this);
+		}
+	}
+
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		switch (v.getId()) {
 		case R.id.value:
 			if (!hasFocus) {
-				onCalculatorItemChangeListener.onCalculatorItemChange(this);
+				notifyListener();
 			}
 			break;
 		default:
@@ -109,7 +115,7 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		case R.id.value:
 			if (actionId == EditorInfo.IME_ACTION_DONE
 					|| actionId == EditorInfo.IME_ACTION_NEXT) {
-				onCalculatorItemChangeListener.onCalculatorItemChange(this);
+				notifyListener();
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					return true;
 				}
@@ -120,7 +126,15 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		}
 		return false;
 	}
-	
+
+	@Override
+	public void onKeyChange(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_UP) {
+			notifyListener();
+		}
+	}
+
 	@Override
 	public int getLayoutId() {
 		return LAYOUT_ID;
