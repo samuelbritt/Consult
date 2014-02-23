@@ -2,35 +2,34 @@ package com.pointandframe.consult.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pointandframe.consult.R;
 
-public class CalculatorItemOutput extends RelativeLayout implements
-		CalculatorItem {
+public class CalculatorItemTextView extends RelativeLayout implements
+		CalculatorItemNumeric {
 
 	protected TextView value;
 	private TextView label;
 	private TextView unit;
 	private static final int LAYOUT_ID = R.layout.calculator_item_output;
 
-	public CalculatorItemOutput(Context context) {
+	public CalculatorItemTextView(Context context) {
 		super(context);
 		if (!isInEditMode()) {
 			setupView(context, null);
 		}
 	}
 
-	public CalculatorItemOutput(Context context, AttributeSet attrs) {
+	public CalculatorItemTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		if (!isInEditMode()) {
 			setupView(context, attrs);
 		}
 	}
 
-	public CalculatorItemOutput(Context context, AttributeSet attrs,
+	public CalculatorItemTextView(Context context, AttributeSet attrs,
 			int defStyle) {
 		super(context, attrs, defStyle);
 		if (!isInEditMode()) {
@@ -50,26 +49,41 @@ public class CalculatorItemOutput extends RelativeLayout implements
 	}
 
 	@Override
-	public String getText() {
+	public String getValueText() {
 		return value.getText().toString();
 	}
 
+	public float getValue() {
+		return getValue(0.0f);
+	}
+
 	@Override
-	public void setText(String s) {
+	public float getValue(float defaultVal) {
+		try {
+			return Float.parseFloat(getValueText());
+		} catch (NumberFormatException e) {
+			return defaultVal;
+		}
+	}
+
+	@Override
+	public void setValueText(String s) {
 		value.setText(s);
 	}
 
+	@Override
 	public void setValue(float f) {
 		setValue("%.2f", f);
 	}
-	
+
+	@Override
+	public void setValue(String formatString, float f) {
+		value.setText(String.format(formatString, f));
+	}
+
 	@Override
 	public void clearValue() {
 		value.setText("");
-	}
-
-	public void setValue(String formatString, float f) {
-		value.setText(String.format(formatString, f));
 	}
 
 	@Override
@@ -86,5 +100,4 @@ public class CalculatorItemOutput extends RelativeLayout implements
 	public TextView getUnit() {
 		return unit;
 	}
-
 }

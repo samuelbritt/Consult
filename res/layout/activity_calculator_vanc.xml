@@ -242,14 +242,14 @@
             android:layout_width="match_parent"
             android:text="@string/header_results" />
 
-        <com.pointandframe.consult.views.CalculatorItemOutput
+        <com.pointandframe.consult.views.CalculatorItemTextView
             android:id="@+id/output_ht_inches"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             calculator:labelText="@string/output_ht_inches_label"
             calculator:unitText="@string/output_ht_inches_unit" />
 
-        <com.pointandframe.consult.views.CalculatorItemOutput
+        <com.pointandframe.consult.views.CalculatorItemTextView
             android:id="@+id/output_kel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -257,7 +257,7 @@
             calculator:labelText="@string/output_kel_label"
             calculator:unitText="@string/output_kel_unit" />
 
-        <com.pointandframe.consult.views.CalculatorItemOutput
+        <com.pointandframe.consult.views.CalculatorItemTextView
             android:id="@+id/output_halflife"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
             calculator:labelText="@string/output_halflife_label"
             calculator:unitText="@string/output_halflife_unit" />
 
-        <com.pointandframe.consult.views.CalculatorItemOutput
+        <com.pointandframe.consult.views.CalculatorItemTextView
             android:id="@+id/output_CrCl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -287,7 +287,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
-                <com.pointandframe.consult.views.CalculatorItemOutput
+                <com.pointandframe.consult.views.CalculatorItemTextView
                     android:id="@+id/output_Vd_normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -295,7 +295,7 @@
                     calculator:labelText="@string/output_Vd_label"
                     calculator:unitText="@string/output_Vd_unit" />
 
-                <com.pointandframe.consult.views.CalculatorItemOutput
+                <com.pointandframe.consult.views.CalculatorItemTextView
                     android:id="@+id/output_Cmin_normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
                     calculator:labelText="@string/output_Cmin_label"
                     calculator:unitText="@string/output_Cmin_unit" />
 
-                <com.pointandframe.consult.views.CalculatorItemOutput
+                <com.pointandframe.consult.views.CalculatorItemTextView
                     android:id="@+id/output_Cmax_normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                 android:orientation="vertical"
                 android:visibility="gone" >
 
-                <com.pointandframe.consult.views.CalculatorItemOutput
+                <com.pointandframe.consult.views.CalculatorItemTextView
                     android:id="@+id/output_Vd_hypoalbumenic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -328,7 +328,7 @@
                     calculator:labelText="@string/output_Vd_label"
                     calculator:unitText="@string/output_Vd_unit" />
 
-                <com.pointandframe.consult.views.CalculatorItemOutput
+                <com.pointandframe.consult.views.CalculatorItemTextView
                     android:id="@+id/output_Cmin_hypoalbumenic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -336,7 +336,7 @@
                     calculator:labelText="@string/output_Cmin_label"
                     calculator:unitText="@string/output_Cmin_unit" />
 
-                <com.pointandframe.consult.views.CalculatorItemOutput
+                <com.pointandframe.consult.views.CalculatorItemTextView
                     android:id="@+id/output_Cmax_hypoalbumenic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

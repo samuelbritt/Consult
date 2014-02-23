@@ -6,16 +6,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pointandframe.consult.R;
-import com.pointandframe.consult.views.CalculatorItemEditText;
 
 public class CalculatorItemEditTextUnitSpinner extends CalculatorItemEditText
 		implements OnItemSelectedListener {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "CalculatorItemEditTextUnitSpinner";
 	private static final int LAYOUT_ID = R.layout.calculator_item_edit_text_unit_spinner;
 	private Spinner unitSpinner;

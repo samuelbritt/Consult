@@ -8,7 +8,7 @@
         android:text="@string/dummy_label" />
 
     <Spinner
-        android:id="@+id/value"
+        android:id="@+id/value_options"
         style="@style/TextAppearance.Calculator_UnitSmall"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"

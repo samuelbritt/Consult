@@ -28,8 +28,8 @@ import com.pointandframe.consult.util.IObserver;
 import com.pointandframe.consult.views.CalculatorItem;
 import com.pointandframe.consult.views.CalculatorItemEditText;
 import com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner;
-import com.pointandframe.consult.views.CalculatorItemOutput;
 import com.pointandframe.consult.views.CalculatorItemSpinner;
+import com.pointandframe.consult.views.CalculatorItemTextView;
 
 public class CalculatorVancActivity extends Activity implements IObserver,
 		OnSeekBarChangeListener, OnClickListener,
@@ -70,19 +70,22 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	HashMap<SeekBar, int[]> seekBarProgressArrays;
 
 	// Outputs
-	private CalculatorItemOutput outputHtInches;
-	private CalculatorItemOutput outputKel;
-	private CalculatorItemOutput outputCrCl;
-	private CalculatorItemOutput outputHalflife;
-	private CalculatorItemOutput outputVdNormal;
-	private CalculatorItemOutput outputVdHypoalbumenic;
-	private CalculatorItemOutput outputCminNormal;
-	private CalculatorItemOutput outputCminHypoalbumenic;
-	private CalculatorItemOutput outputCmaxNormal;
-	private CalculatorItemOutput outputCmaxHypoalbumenic;
+	private CalculatorItemTextView outputHtInches;
+	private CalculatorItemTextView outputKel;
+	private CalculatorItemTextView outputCrCl;
+	private CalculatorItemTextView outputHalflife;
+	private CalculatorItemTextView outputVdNormal;
+	private CalculatorItemTextView outputVdHypoalbumenic;
+	private CalculatorItemTextView outputCminNormal;
+	private CalculatorItemTextView outputCminHypoalbumenic;
+	private CalculatorItemTextView outputCmaxNormal;
+	private CalculatorItemTextView outputCmaxHypoalbumenic;
 
 	// Other fields
+	@SuppressWarnings("unused")
 	private final static String TAG = "CalculatorVancActivity";
+	private final static String KEY_PATIENT = "PATIENT";
+	private final static String KEY_DOSING_REGIMIN = "DOSING_REGIMIN";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +93,15 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		setContentView(R.layout.activity_calculator_vanc);
 
 		// Model
-		patient = new Patient();
-		regimen = new DosingRegimen();
-		drug = new Vancomycin();
+		if (savedInstanceState != null) {
+			patient = (Patient) savedInstanceState.getParcelable(KEY_PATIENT);
+			regimen = (DosingRegimen) savedInstanceState.getParcelable(KEY_DOSING_REGIMIN);
+		} else {
+			patient = new Patient();
+			regimen = new DosingRegimen();
+		}
+		
+		drug = new Vancomycin();			
 		calculator = new PKCalculator(patient, drug, regimen);
 		patient.registerObserver(this);
 		regimen.registerObserver(this);
@@ -129,16 +138,16 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 				inputIsQuadriplegic, inputDose, inputDoseInterval };
 
 		// Output
-		outputHtInches = ((CalculatorItemOutput) findViewById(R.id.output_ht_inches));
-		outputKel = ((CalculatorItemOutput) findViewById(R.id.output_kel));
-		outputHalflife = ((CalculatorItemOutput) findViewById(R.id.output_halflife));
-		outputCrCl = ((CalculatorItemOutput) findViewById(R.id.output_CrCl));
-		outputVdNormal = ((CalculatorItemOutput) findViewById(R.id.output_Vd_normal));
-		outputVdHypoalbumenic = ((CalculatorItemOutput) findViewById(R.id.output_Vd_hypoalbumenic));
-		outputCminNormal = ((CalculatorItemOutput) findViewById(R.id.output_Cmin_normal));
-		outputCminHypoalbumenic = ((CalculatorItemOutput) findViewById(R.id.output_Cmin_hypoalbumenic));
-		outputCmaxNormal = ((CalculatorItemOutput) findViewById(R.id.output_Cmax_normal));
-		outputCmaxHypoalbumenic = ((CalculatorItemOutput) findViewById(R.id.output_Cmax_hypoalbumenic));
+		outputHtInches = ((CalculatorItemTextView) findViewById(R.id.output_ht_inches));
+		outputKel = ((CalculatorItemTextView) findViewById(R.id.output_kel));
+		outputHalflife = ((CalculatorItemTextView) findViewById(R.id.output_halflife));
+		outputCrCl = ((CalculatorItemTextView) findViewById(R.id.output_CrCl));
+		outputVdNormal = ((CalculatorItemTextView) findViewById(R.id.output_Vd_normal));
+		outputVdHypoalbumenic = ((CalculatorItemTextView) findViewById(R.id.output_Vd_hypoalbumenic));
+		outputCminNormal = ((CalculatorItemTextView) findViewById(R.id.output_Cmin_normal));
+		outputCminHypoalbumenic = ((CalculatorItemTextView) findViewById(R.id.output_Cmin_hypoalbumenic));
+		outputCmaxNormal = ((CalculatorItemTextView) findViewById(R.id.output_Cmax_normal));
+		outputCmaxHypoalbumenic = ((CalculatorItemTextView) findViewById(R.id.output_Cmax_hypoalbumenic));
 
 		// Add Listeners
 		// Patient Details
@@ -168,6 +177,16 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputSex.setOptions(Sex.values());
 		initSeekBar(inputDose, drug.getValidDoses());
 		initSeekBar(inputDoseInterval, drug.getValidDosingIntervals());
+		
+		updateOutputViews();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(KEY_PATIENT, patient);
+		outState.putParcelable(KEY_DOSING_REGIMIN, regimen);
+
+		super.onSaveInstanceState(outState);
 	}
 
 	private void initSeekBar(SeekBar seekBar, int[] progressArray) {

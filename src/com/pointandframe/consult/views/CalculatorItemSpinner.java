@@ -1,23 +1,20 @@
 package com.pointandframe.consult.views;
 
-import com.pointandframe.consult.R;
-import com.pointandframe.consult.views.CalculatorItem.OnCalculatorItemChangeListener;
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.pointandframe.consult.R;
+
 public class CalculatorItemSpinner extends RelativeLayout implements
 		CalculatorItem, OnItemSelectedListener {
+	@SuppressWarnings("unused")
 	private static final String TAG = "CalculatorItemEditText";
 	private static final int LAYOUT_ID = R.layout.calculator_item_spinner;
 	protected Spinner value;
@@ -51,7 +48,7 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 		init.inflate(context);
 
 		label = (TextView) findViewById(R.id.label);
-		value = (Spinner) findViewById(R.id.value);
+		value = (Spinner) findViewById(R.id.value_options);
 
 		init.setAttr(context, attrs);
 
@@ -59,7 +56,7 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 	}
 
 	@Override
-	public String getText() {
+	public String getValueText() {
 		return value.getSelectedItem().toString();
 	}
 
@@ -68,7 +65,7 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 	}
 
 	@Override
-	public void setText(String s) {
+	public void setValueText(String s) {
 	}
 	
 	@Override
@@ -91,7 +88,7 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
 		switch (parent.getId()) {
-		case R.id.value:
+		case R.id.value_options:
 			onCalculatorItemChangeListener.onCalculatorItemChange(this);
 			break;
 		}

@@ -1,5 +1,7 @@
 package com.pointandframe.consult.model;
 
+import android.os.Parcelable;
+
 
 public interface IDrug {
 

@@ -1,15 +1,18 @@
 package com.pointandframe.consult.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.pointandframe.consult.util.IObservable;
 import com.pointandframe.consult.util.IObserver;
 import com.pointandframe.consult.util.SimpleObservable;
 
-public class Patient implements IObservable {
+public class Patient implements IObservable, Parcelable {
 	private static double CM_PER_INCH = 2.54;
 
+	private int age;
 	private float height_cm;
 	private float actualBodyWeight;
-	private int age;
 	private boolean isMale;
 	private float SCr;
 	private boolean isDiabetic;
@@ -25,7 +28,56 @@ public class Patient implements IObservable {
 
 	private IObservable oberservable;
 
+	private class ParcelWriter {
+		public void writeToParcel(Parcel dest, int flags) {
+			dest.writeInt(age);
+			dest.writeFloat(height_cm);
+			dest.writeFloat(actualBodyWeight);
+			dest.writeByte((byte) (isMale ? 1 : 0));
+			dest.writeFloat(SCr);
+			dest.writeByte((byte) (isDiabetic ? 1 : 0));
+			dest.writeByte((byte) (hasAids ? 1 : 0));
+			dest.writeByte((byte) (inIcu ? 1 : 0));
+			dest.writeByte((byte) (isPregnant ? 1 : 0));
+			dest.writeByte((byte) (hasAcuteRenalFailure ? 1 : 0));
+			dest.writeByte((byte) (hasEndStageRenalDisease ? 1 : 0));
+			dest.writeByte((byte) (hasCancer ? 1 : 0));
+			dest.writeByte((byte) (isBedridden ? 1 : 0));
+			dest.writeByte((byte) (isParaplegic ? 1 : 0));
+			dest.writeByte((byte) (isQuadriplegic ? 1 : 0));
+		}
+		
+		public void readFromParcel(Parcel in) {
+			age = in.readInt();
+			height_cm = in.readFloat();
+			actualBodyWeight = in.readFloat();
+			isMale = in.readByte() != 0;
+			SCr = in.readFloat();
+			isDiabetic = in.readByte() != 0;
+			hasAids = in.readByte() != 0;
+			inIcu = in.readByte() != 0;
+			isPregnant = in.readByte() != 0;
+			hasAcuteRenalFailure = in.readByte() != 0;
+			hasEndStageRenalDisease = in.readByte() != 0;
+			hasCancer = in.readByte() != 0;
+			isBedridden = in.readByte() != 0;
+			isParaplegic = in.readByte() != 0;
+			isQuadriplegic = in.readByte() != 0;
+		}
+	}
+
+	public static final Parcelable.Creator<Patient> CREATOR = new Parcelable.Creator<Patient>() {
+		public Patient createFromParcel(Parcel in) {
+			return new Patient(in);
+		}
+
+		public Patient[] newArray(int size) {
+			return new Patient[size];
+		}
+	};
+	
 	public Patient() {
+		oberservable = new SimpleObservable();
 		height_cm = 0f;
 		actualBodyWeight = 0f;
 		age = 0;
@@ -41,10 +93,32 @@ public class Patient implements IObservable {
 		isBedridden = false;
 		isParaplegic = false;
 		isQuadriplegic = false;
-		
-		oberservable = new SimpleObservable();
 	}
-
+	public Patient(Parcel in) {
+		oberservable = new SimpleObservable();
+		(new ParcelWriter()).readFromParcel(in);
+	}
+	
+	@Override
+	public String toString() {
+		 return "Patient( "
+			 + "age: " + age + ", "
+			 + "height_cm: " + height_cm + ", "
+			 + "actualBodyWeight: " + actualBodyWeight + ", "
+			 + "isMale: " + isMale + ", "
+			 + "SCr: " + SCr + ", "
+			 + "isDiabetic: " + isDiabetic + ", "
+			 + "hasAids: " + hasAids + ", "
+			 + "inIcu: " + inIcu + ", "
+			 + "isPregnant: " + isPregnant + ", "
+			 + "hasAcuteRenalFailure: " + hasAcuteRenalFailure + ", "
+			 + "hasEndStageRenalDisease: " + hasEndStageRenalDisease + ", "
+			 + "hasCancer: " + hasCancer + ", "
+			 + "isBedridden: " + isBedridden + ", "
+			 + "isParaplegic: " + isParaplegic + ", "
+			 + "isQuadriplegic: " + isQuadriplegic + " )";
+	}
+	
 	public float getHeight_cm() {
 		return height_cm;
 	}
@@ -91,12 +165,11 @@ public class Patient implements IObservable {
 	}
 
 	public void setSex(Sex sex) {
-		if (sex == Sex.MALE) {
-			isMale = true;
-		} else {
-			isMale = false;
-		}
+		isMale = sex == Sex.MALE;
 		onUpdate();
+	}
+	public Sex getSex() {
+		return isMale ? Sex.MALE : Sex.FEMALE;
 	}
 
 	public float getSCr() {
@@ -290,5 +363,13 @@ public class Patient implements IObservable {
 		oberservable.notifyObservers();
 	}
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
 
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		(new ParcelWriter()).writeToParcel(dest, flags);
+	}
 }

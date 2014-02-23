@@ -1,6 +1,8 @@
 package com.pointandframe.consult.views;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,8 +16,9 @@ import com.pointandframe.consult.R;
 import com.pointandframe.consult.views.KeyChangeListenerEditText.OnKeyChangeListener;
 
 public class CalculatorItemEditText extends RelativeLayout implements
-		CalculatorItem, OnFocusChangeListener, OnEditorActionListener,
+		CalculatorItemNumeric, OnFocusChangeListener, OnEditorActionListener,
 		OnKeyChangeListener {
+	@SuppressWarnings("unused")
 	private static final String TAG = "CalculatorItemEditText";
 	private static final int LAYOUT_ID = R.layout.calculator_item_edit_text;
 	protected OnCalculatorItemChangeListener onCalculatorItemChangeListener;
@@ -74,33 +77,43 @@ public class CalculatorItemEditText extends RelativeLayout implements
 	public TextView getUnit() {
 		return unit;
 	}
-	
-	@Override
-	public String getText() {
-		return value.getText().toString();
-	}
 
 	@Override
-	public void setText(String s) {
-		value.setText(s);
-	}
-	
-	@Override
-	public void clearValue() {
-		value.getText().clear();
-		notifyListener();
+	public String getValueText() {
+		return value.getText().toString();
 	}
 
 	public float getValue() {
 		return getValue(0.0f);
 	}
 
+	@Override
 	public float getValue(float defaultVal) {
 		try {
-			return Float.parseFloat(getText());
+			return Float.parseFloat(getValueText());
 		} catch (NumberFormatException e) {
 			return defaultVal;
 		}
+	}
+
+	@Override
+	public void setValueText(String s) {
+		value.setText(s);
+	}
+
+	@Override
+	public void setValue(float f) {
+		setValue("%.2f", f);
+	}
+
+	@Override
+	public void setValue(String formatString, float f) {
+		value.setText(String.format(formatString, f));
+	}
+
+	@Override
+	public void clearValue() {
+		value.getText().clear();
 	}
 
 	public void setOnCalculatorItemChangeListener(
@@ -143,5 +156,24 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		}
 	}
 
+	@Override
+	public Parcelable onSaveInstanceState() {
 
+		Bundle bundle = new Bundle();
+		bundle.putParcelable("instanceState", super.onSaveInstanceState());
+		if (value != null)
+			bundle.putString("value", getValueText());
+		return bundle;
+	}
+
+	@Override
+	public void onRestoreInstanceState(Parcelable state) {
+
+		if (state instanceof Bundle) {
+			Bundle bundle = (Bundle) state;
+			setValueText(bundle.getString("value"));
+			state = bundle.getParcelable("instanceState");
+		}
+		super.onRestoreInstanceState(state);
+	}
 }

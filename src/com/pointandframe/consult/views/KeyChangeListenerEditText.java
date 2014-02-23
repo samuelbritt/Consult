@@ -11,6 +11,7 @@ public class KeyChangeListenerEditText extends EditText {
 	}
 
 	private OnKeyChangeListener onKeyChangeListener;
+	@SuppressWarnings("unused")
 	private static final String TAG = "KeyChangeListenerEditText";
 
 	public KeyChangeListenerEditText(Context context) {
@@ -21,7 +22,8 @@ public class KeyChangeListenerEditText extends EditText {
 		super(context, attrs);
 	}
 
-	public KeyChangeListenerEditText(Context context, AttributeSet attrs, int defStyle) {
+	public KeyChangeListenerEditText(Context context, AttributeSet attrs,
+			int defStyle) {
 		super(context, attrs, defStyle);
 	}
 

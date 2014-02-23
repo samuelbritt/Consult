@@ -7,9 +7,9 @@ public interface CalculatorItem {
 		public void onCalculatorItemChange(CalculatorItem v);
 	}
 
-	public String getText();
+	public String getValueText();
 
-	public void setText(String s);
+	public void setValueText(String s);
 
 	public void clearValue();
 
