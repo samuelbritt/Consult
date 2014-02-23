@@ -2,6 +2,20 @@ package com.pointandframe.consult;
 
 import java.util.HashMap;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
+
 import com.pointandframe.consult.model.DosingRegimen;
 import com.pointandframe.consult.model.IDrug;
 import com.pointandframe.consult.model.LengthUnit;
@@ -17,20 +31,6 @@ import com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner;
 import com.pointandframe.consult.views.CalculatorItemOutput;
 import com.pointandframe.consult.views.CalculatorItemSpinner;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
-
 public class CalculatorVancActivity extends Activity implements IObserver,
 		OnSeekBarChangeListener, OnClickListener,
 		CalculatorItem.OnCalculatorItemChangeListener {
@@ -40,6 +40,9 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	private DosingRegimen regimen;
 	private IDrug drug;
 	private PKCalculator calculator;
+
+	// All inputs
+	View[] inputs;
 
 	// Patient Detail Input
 	private CalculatorItemEditText inputAge;
@@ -118,6 +121,12 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputDoseValue = (TextView) findViewById(R.id.input_dose_value);
 		inputDoseInterval = (SeekBar) findViewById(R.id.input_dose_interval_seek);
 		inputDoseIntervalValue = (TextView) findViewById(R.id.input_dose_interval_value);
+
+		inputs = new View[] { inputAge, inputSex, inputHt, inputWt, inputSCr,
+				inputIsDiabetic, inputIsBedridden, inputInICU, inputIsPregnant,
+				inputHasAcuteRenalFailure, inputHasEndStageRenalDisease,
+				inputHasCancer, inputHasAids, inputIsParaplegic,
+				inputIsQuadriplegic, inputDose, inputDoseInterval };
 
 		// Output
 		outputHtInches = ((CalculatorItemOutput) findViewById(R.id.output_ht_inches));
@@ -216,11 +225,17 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	public void onClick(View v) {
 		updateModel(v);
 	}
+	
+	private void updateModel() {
+		for (int i = 0, count = inputs.length; i < count; ++i) {
+			updateModel(inputs[i]);
+		}
+	}
 
 	private void updateModel(View v) {
 		switch (v.getId()) {
 		case R.id.input_age:
-			patient.setAge((int) ((CalculatorItemEditText) v).getValue());
+			patient.setAge((int) inputAge.getValue());
 			break;
 		case R.id.input_sex:
 			Sex sex = (Sex) inputSex.getSelectedItem();
@@ -233,13 +248,13 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 			patient.setSex(sex);
 			break;
 		case R.id.input_wt:
-			patient.setActualBodyWeight(((CalculatorItemEditText) v).getValue());
+			patient.setActualBodyWeight(inputWt.getValue());
 			break;
 		case R.id.input_ht:
 			setPatientHeight();
 			break;
 		case R.id.input_SCr:
-			patient.setSCr(((CalculatorItemEditText) v).getValue());
+			patient.setSCr(inputSCr.getValue());
 			break;
 		case R.id.input_isDiabetic:
 			patient.setDiabetic(inputIsDiabetic.isChecked());
@@ -316,22 +331,20 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		}
 	}
 
-	private void clearForm(ViewGroup group) {
-		{
-			for (int i = 0, count = group.getChildCount(); i < count; ++i) {
-				View view = group.getChildAt(i);
-				if (view instanceof EditText) {
-					((EditText) view).getText().clear();
-				} else if (view instanceof CheckBox) {
-					((CheckBox) view).setChecked(false);
-				} else if (view instanceof SeekBar) {
-					setSeekBarDefault((SeekBar) view);
-				}
-
-				if (view instanceof ViewGroup)
-					clearForm((ViewGroup) view);
+	private void clearInputs() {
+		for (int i = 0, count = inputs.length; i < count; ++i) {
+			View view = inputs[i];
+			if (view instanceof CalculatorItem) {
+				((CalculatorItem) view).clearValue();
+			} else if (view instanceof EditText) {
+				((EditText) view).getText().clear();
+			} else if (view instanceof CheckBox) {
+				((CheckBox) view).setChecked(false);
+			} else if (view instanceof SeekBar) {
+				setSeekBarDefault((SeekBar) view);
 			}
 		}
+		updateModel();
 	}
 
 	@Override
@@ -345,7 +358,8 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_clear:
-			clearForm((ViewGroup) findViewById(R.id.MainView));
+			clearInputs();
+			((ScrollView) findViewById(R.id.ScrollView)).fullScroll(ScrollView.FOCUS_UP);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

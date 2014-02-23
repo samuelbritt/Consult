@@ -11,9 +11,12 @@ public interface CalculatorItem {
 
 	public void setText(String s);
 
+	public void clearValue();
+
 	public int getLayoutId();
 
 	public TextView getLabel();
 
 	public TextView getUnit();
+
 }

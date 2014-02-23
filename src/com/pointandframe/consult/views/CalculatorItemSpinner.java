@@ -70,6 +70,11 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 	@Override
 	public void setText(String s) {
 	}
+	
+	@Override
+	public void clearValue() {
+		value.setSelection(0);
+	}
 
 	public <T> void setOptions(T[] spinnerOptions) {
 		ArrayAdapter<T> adapter = new ArrayAdapter<T>(getContext(),

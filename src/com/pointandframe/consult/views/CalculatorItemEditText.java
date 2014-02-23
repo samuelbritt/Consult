@@ -61,6 +61,21 @@ public class CalculatorItemEditText extends RelativeLayout implements
 	}
 
 	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
+
+	@Override
+	public TextView getLabel() {
+		return label;
+	}
+
+	@Override
+	public TextView getUnit() {
+		return unit;
+	}
+	
+	@Override
 	public String getText() {
 		return value.getText().toString();
 	}
@@ -68,6 +83,12 @@ public class CalculatorItemEditText extends RelativeLayout implements
 	@Override
 	public void setText(String s) {
 		value.setText(s);
+	}
+	
+	@Override
+	public void clearValue() {
+		value.getText().clear();
+		notifyListener();
 	}
 
 	public float getValue() {
@@ -122,19 +143,5 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		}
 	}
 
-	@Override
-	public int getLayoutId() {
-		return LAYOUT_ID;
-	}
-
-	@Override
-	public TextView getLabel() {
-		return label;
-	}
-
-	@Override
-	public TextView getUnit() {
-		return unit;
-	}
 
 }

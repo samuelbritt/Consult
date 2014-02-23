@@ -1,5 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:calculator="http://schemas.android.com/apk/res/com.pointandframe.consult"
+    android:id="@+id/ScrollView"
     android:layout_width="wrap_content"
     android:layout_height="match_parent" >
 
