@@ -75,14 +75,11 @@ public class CalculatorItemEditText extends RelativeLayout implements
 	}
 
 	public float getValue(float defaultVal) {
-		String valStr = getText();
-		float val;
 		try {
-			val = Float.parseFloat(valStr);
+			return Float.parseFloat(getText());
 		} catch (NumberFormatException e) {
-			val = defaultVal;
+			return defaultVal;
 		}
-		return val;
 	}
 
 	public void setOnCalculatorItemChangeListener(
@@ -98,14 +95,8 @@ public class CalculatorItemEditText extends RelativeLayout implements
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		switch (v.getId()) {
-		case R.id.value:
-			if (!hasFocus) {
-				notifyListener();
-			}
-			break;
-		default:
-			break;
+		if (!hasFocus && v.getId() == R.id.value) {
+			notifyListener();
 		}
 	}
 
@@ -116,12 +107,8 @@ public class CalculatorItemEditText extends RelativeLayout implements
 			if (actionId == EditorInfo.IME_ACTION_DONE
 					|| actionId == EditorInfo.IME_ACTION_NEXT) {
 				notifyListener();
-				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					return true;
-				}
+				return actionId == EditorInfo.IME_ACTION_DONE;
 			}
-			return false;
-		default:
 			break;
 		}
 		return false;
