@@ -78,7 +78,11 @@ public class CalculatorItemTextView extends RelativeLayout implements
 
 	@Override
 	public void setValue(String formatString, float f) {
-		value.setText(String.format(formatString, f));
+		if (Float.isInfinite(f) || Float.isNaN(f)) {
+			value.setText(" - ");
+		} else {
+			value.setText(String.format(formatString, f));
+		}
 	}
 
 	@Override
