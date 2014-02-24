@@ -30,7 +30,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minWidth">48dp</item>
-        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:gravity">bottom</item>
     </style>
@@ -62,6 +62,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?android:attr/listPreferredItemHeight</item>
         <item name="android:minHeight">?android:attr/listPreferredItemHeight</item>
+        <item name="android:paddingBottom">?android:attr/listPreferredItemPaddingEnd</item>
+        <item name="android:paddingTop">?android:attr/listPreferredItemPaddingStart</item>
+        <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
+        
+<!--         <item name="android:background">@drawable/border</item> -->
+    </style>
+    
+        <style name="DataSection.Narrow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
         <item name="android:paddingBottom">?android:attr/listPreferredItemPaddingEnd</item>
         <item name="android:paddingTop">?android:attr/listPreferredItemPaddingStart</item>
         <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>

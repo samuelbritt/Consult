@@ -19,7 +19,7 @@
 	<string name="input_ht_label">Height</string>
     <string name="input_wt_label">Weight</string>
 	<string name="input_wt_unit">kg</string>
-	<string name="input_SCr_label">Serum Creatinine</string>
+	<string name="input_SCr_label">SCr</string>
 	<string name="input_SCr_unit">mg/dL</string>
 	<string name="input_dose_label">Dose</string>
 	<string name="input_dose_unit">mg</string>
@@ -49,7 +49,7 @@
 	<string name="output_kel_unit">hr<sup><small>-1</small></sup></string>
 	<string name="output_halflife_label">t<sub><small>1/2</small></sub></string>
 	<string name="output_halflife_unit">hr</string>
-	<string name="output_CrCl_label">Creatinine Clearance</string>
+	<string name="output_CrCl_label">CrCl</string>
 	<string name="output_CrCl_unit">mL/min</string>
 
 </resources>

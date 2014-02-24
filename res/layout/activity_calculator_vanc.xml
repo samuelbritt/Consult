@@ -25,62 +25,89 @@
             android:layout_height="wrap_content"
             android:text="@string/header_patient_details" />
 
-        <com.pointandframe.consult.views.CalculatorItemEditText
-            android:id="@+id/input_age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            calculator:labelText="@string/input_age_label"
-            calculator:unitText="@string/input_age_unit" />
-
-        <com.pointandframe.consult.views.CalculatorItemSpinner
-            android:id="@+id/input_sex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            calculator:labelText="@string/input_sex_label" />
-
-        <com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner
-            android:id="@+id/input_ht"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            calculator:labelText="@string/input_ht_label" />
-
-        <com.pointandframe.consult.views.CalculatorItemEditText
-            android:id="@+id/input_wt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            calculator:labelText="@string/input_wt_label"
-            calculator:unitText="@string/input_wt_unit" />
-
-        <com.pointandframe.consult.views.CalculatorItemEditText
-            android:id="@+id/input_SCr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            calculator:labelText="@string/input_SCr_label"
-            calculator:unitText="@string/input_SCr_unit" />
-
         <LinearLayout
-            android:id="@+id/input_CheckBoxRow1"
-            style="@style/DataSection"
-            android:orientation="horizontal" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/dividerVertical" >
 
-            <CheckBox
-                android:id="@+id/input_isDiabetic"
-                style="@style/TextAppearance.Calculator_CheckboxLabel"
-                android:layout_width="match_parent"
+            <com.pointandframe.consult.views.CalculatorItemEditText
+                android:id="@+id/input_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/input_isDiabetic_label" />
+                calculator:labelText="@string/input_age_label"
+                calculator:unitText="@string/input_age_unit" />
 
-            <CheckBox
-                android:id="@+id/input_isBedridden"
-                style="@style/TextAppearance.Calculator_CheckboxLabel"
-                android:layout_width="match_parent"
+            <com.pointandframe.consult.views.CalculatorItemSpinner
+                android:id="@+id/input_sex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/input_isBedridden_label" />
+                calculator:labelText="@string/input_sex_label" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/input_CheckBoxRow2"
-            style="@style/DataSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/dividerVertical" >
+
+            <com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner
+                android:id="@+id/input_ht"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                calculator:labelText="@string/input_ht_label" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/dividerVertical" >
+
+            <com.pointandframe.consult.views.CalculatorItemEditText
+                android:id="@+id/input_wt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                calculator:labelText="@string/input_wt_label"
+                calculator:unitText="@string/input_wt_unit" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/dividerVertical" >
+
+            <com.pointandframe.consult.views.CalculatorItemEditText
+                android:id="@+id/input_SCr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                calculator:labelAllCaps="false"
+                calculator:labelText="@string/input_SCr_label"
+                calculator:unitText="@string/input_SCr_unit" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/DataSection.Narrow"
             android:orientation="horizontal" >
 
             <CheckBox
@@ -91,16 +118,15 @@
                 android:text="@string/input_inICU_label" />
 
             <CheckBox
-                android:id="@+id/input_isPregnant"
+                android:id="@+id/input_isBedridden"
                 style="@style/TextAppearance.Calculator_CheckboxLabel"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:text="@string/input_isPregnant_label" />
+                android:text="@string/input_isBedridden_label" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/input_CheckBoxRow3"
-            style="@style/DataSection"
+            style="@style/DataSection.Narrow"
             android:orientation="horizontal" >
 
             <CheckBox
@@ -119,8 +145,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/input_CheckBoxRow4"
-            style="@style/DataSection"
+            style="@style/DataSection.Narrow"
             android:orientation="horizontal" >
 
             <CheckBox
@@ -139,8 +164,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/input_CheckBoxRow5"
-            style="@style/DataSection"
+            style="@style/DataSection.Narrow"
             android:orientation="horizontal" >
 
             <CheckBox
@@ -156,6 +180,24 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:text="@string/input_isQuadriplegic_label" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/DataSection.Narrow"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/input_isPregnant"
+                style="@style/TextAppearance.Calculator_CheckboxLabel"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="@string/input_isPregnant_label" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <!-- DOSING REGIMIN DETAILS -->
@@ -253,6 +295,7 @@
             android:id="@+id/output_CrCl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            calculator:labelAllCaps="false"
             calculator:labelText="@string/output_CrCl_label"
             calculator:unitText="@string/output_CrCl_unit" />
 
@@ -281,7 +324,6 @@
                 calculator:labelText="@string/output_halflife_label"
                 calculator:unitText="@string/output_halflife_unit" />
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/output_normal"
@@ -326,7 +368,7 @@
             android:divider="?android:attr/dividerVertical"
             android:orientation="horizontal"
             android:showDividers="middle"
-            android:visibility="gone">
+            android:visibility="gone" >
 
             <com.pointandframe.consult.views.CalculatorItemTextView
                 android:id="@+id/output_Vd_hypoalbumenic"
