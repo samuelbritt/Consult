@@ -274,7 +274,6 @@ public class Patient implements IObservable, Parcelable {
 	public boolean inHypoAlbumenicState() {
 		return (
 			getAge() >= 65
-			|| isDiabetic()
 			|| hasAids()
 			|| inIcu()
 			|| isPregnant()

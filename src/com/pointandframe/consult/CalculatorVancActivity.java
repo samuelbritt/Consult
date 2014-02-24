@@ -51,7 +51,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	private CalculatorItemEditText inputWt;
 	private CalculatorItemEditText inputSCr;
 
-	private CheckBox inputIsDiabetic;
 	private CheckBox inputIsBedridden;
 	private CheckBox inputInICU;
 	private CheckBox inputIsPregnant;
@@ -95,13 +94,14 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		// Model
 		if (savedInstanceState != null) {
 			patient = (Patient) savedInstanceState.getParcelable(KEY_PATIENT);
-			regimen = (DosingRegimen) savedInstanceState.getParcelable(KEY_DOSING_REGIMIN);
+			regimen = (DosingRegimen) savedInstanceState
+					.getParcelable(KEY_DOSING_REGIMIN);
 		} else {
 			patient = new Patient();
 			regimen = new DosingRegimen();
 		}
-		
-		drug = new Vancomycin();			
+
+		drug = new Vancomycin();
 		calculator = new PKCalculator(patient, drug, regimen);
 		patient.registerObserver(this);
 		regimen.registerObserver(this);
@@ -114,7 +114,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputWt = (CalculatorItemEditText) findViewById(R.id.input_wt);
 		inputSCr = (CalculatorItemEditText) findViewById(R.id.input_SCr);
 
-		inputIsDiabetic = ((CheckBox) findViewById(R.id.input_isDiabetic));
 		inputIsBedridden = ((CheckBox) findViewById(R.id.input_isBedridden));
 		inputInICU = ((CheckBox) findViewById(R.id.input_inICU));
 		inputIsPregnant = ((CheckBox) findViewById(R.id.input_isPregnant));
@@ -132,7 +131,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputDoseIntervalValue = (TextView) findViewById(R.id.input_dose_interval_value);
 
 		inputs = new View[] { inputAge, inputSex, inputHt, inputWt, inputSCr,
-				inputIsDiabetic, inputIsBedridden, inputInICU, inputIsPregnant,
+				inputIsBedridden, inputInICU, inputIsPregnant,
 				inputHasAcuteRenalFailure, inputHasEndStageRenalDisease,
 				inputHasCancer, inputHasAids, inputIsParaplegic,
 				inputIsQuadriplegic, inputDose, inputDoseInterval };
@@ -157,7 +156,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputWt.setOnCalculatorItemChangeListener(this);
 		inputSCr.setOnCalculatorItemChangeListener(this);
 
-		inputIsDiabetic.setOnClickListener(this);
 		inputIsBedridden.setOnClickListener(this);
 		inputInICU.setOnClickListener(this);
 		inputIsPregnant.setOnClickListener(this);
@@ -177,10 +175,10 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		inputSex.setOptions(Sex.values());
 		initSeekBar(inputDose, drug.getValidDoses());
 		initSeekBar(inputDoseInterval, drug.getValidDosingIntervals());
-		
+
 		updateOutputViews();
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putParcelable(KEY_PATIENT, patient);
@@ -244,7 +242,7 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	public void onClick(View v) {
 		updateModel(v);
 	}
-	
+
 	private void updateModel() {
 		for (int i = 0, count = inputs.length; i < count; ++i) {
 			updateModel(inputs[i]);
@@ -274,9 +272,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 			break;
 		case R.id.input_SCr:
 			patient.setSCr(inputSCr.getValue());
-			break;
-		case R.id.input_isDiabetic:
-			patient.setDiabetic(inputIsDiabetic.isChecked());
 			break;
 		case R.id.input_isBedridden:
 			patient.setBedridden(inputIsBedridden.isChecked());
@@ -378,7 +373,8 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		switch (item.getItemId()) {
 		case R.id.action_clear:
 			clearInputs();
-			((ScrollView) findViewById(R.id.ScrollView)).fullScroll(ScrollView.FOCUS_UP);
+			((ScrollView) findViewById(R.id.ScrollView))
+					.fullScroll(ScrollView.FOCUS_UP);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
