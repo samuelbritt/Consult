@@ -84,7 +84,6 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	private CalculatorItemTextView outputCmaxNormal;
 	private CalculatorItemTextView outputCmaxHypoalbumenic;
 
-
 	// Other fields
 	@SuppressWarnings("unused")
 	private final static String TAG = "CalculatorVancActivity";
@@ -320,16 +319,21 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	}
 
 	private void updateOutputViews() {
-		if (inputHt.isEmpty() || inputWt.isEmpty()) {
+		if (inputHt.isEmpty()) {
 			outputHtInches.clearValue();
+		} else {
+			outputHtInches.setValue("%d", ((int) patient.getHeight_in()));
+		}
+		
+		if (inputHt.isEmpty() || inputWt.isEmpty()) {
 			outputWtIdeal.clearValue();
 			outputWtAdjusted.clearValue();
 		} else {
-			outputHtInches.setValue("%d", ((int) patient.getHeight_in()));
 			outputWtIdeal.setValue("%d", ((int) patient.getIdealBodyWeight()));
-			outputWtAdjusted.setValue("%d", ((int) patient.getAdjustedBodyWeight()));
+			outputWtAdjusted.setValue("%d",
+					((int) patient.getAdjustedBodyWeight()));
 		}
-		
+
 		if (inputSCr.isEmpty() || inputWt.isEmpty()) {
 			outputCrCl.clearValue();
 		} else {
@@ -346,7 +350,8 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		outputCmaxNormal.setValue(((float) calculator.getCmax(vd)));
 
 		if (patient.inHypoAlbumenicState()) {
-			outputVdPerAbwHypoalbumenic.setValue("%.2f", calculator.getHypoAlbumenicVdPerABW());
+			outputVdPerAbwHypoalbumenic.setValue("%.2f",
+					calculator.getHypoAlbumenicVdPerABW());
 			vd = calculator.getHypoAlbumenicVd();
 			outputVdHypoalbumenic.setValue(vd);
 			outputCminHypoalbumenic.setValue(((float) calculator.getCmin(vd)));

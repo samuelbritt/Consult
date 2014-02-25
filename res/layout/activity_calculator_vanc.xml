@@ -27,8 +27,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="?android:attr/dividerVertical" >
+            android:layout_height="wrap_content" >
 
             <com.pointandframe.consult.views.CalculatorItemEditText
                 android:id="@+id/input_age"
@@ -47,8 +46,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="?android:attr/dividerVertical" >
+            android:layout_height="wrap_content"  >
 
             <com.pointandframe.consult.views.CalculatorItemSpinner
                 android:id="@+id/input_sex"
@@ -67,9 +65,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="?android:attr/dividerVertical"
-            android:orientation="horizontal"
-            android:showDividers="middle" >
+            android:orientation="horizontal" >
+
+            <!-- android:showDividers="middle" > -->
 
             <com.pointandframe.consult.views.CalculatorItemEditTextUnitSpinner
                 android:id="@+id/input_ht"
@@ -89,11 +87,11 @@
                 calculator:unitText="@string/output_ht_inches_unit" />
         </LinearLayout>
 
+        <include layout="@layout/divider_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:divider="?android:attr/dividerVertical"
-            android:showDividers="middle" >
+            android:layout_height="?android:attr/listPreferredItemHeight" >
 
             <com.pointandframe.consult.views.CalculatorItemEditText
                 android:id="@+id/input_wt"
@@ -126,10 +124,11 @@
             </LinearLayout>
         </LinearLayout>
 
+        <include layout="@layout/divider_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="?android:attr/dividerVertical"
             android:gravity="center_vertical" >
 
             <com.pointandframe.consult.views.CalculatorItemEditText
@@ -332,8 +331,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            android:divider="?android:attr/dividerVertical"
-            android:dividerPadding="4dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -363,8 +360,6 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:baselineAligned="false"
-            android:divider="?android:attr/dividerVertical"
-            android:dividerPadding="4dp"
             android:orientation="horizontal" >
 
             <LinearLayout
@@ -420,8 +415,8 @@
             android:id="@+id/output_hypoalbumenic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <include layout="@layout/divider_horizontal" />
 
