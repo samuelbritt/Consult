@@ -3,11 +3,13 @@ package com.pointandframe.consult.views;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -116,6 +118,11 @@ public class CalculatorItemEditText extends RelativeLayout implements
 		value.getText().clear();
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return TextUtils.isEmpty(value.getText().toString());
+	}
+
 	public void setOnCalculatorItemChangeListener(
 			OnCalculatorItemChangeListener listener) {
 		onCalculatorItemChangeListener = listener;
@@ -141,7 +148,14 @@ public class CalculatorItemEditText extends RelativeLayout implements
 			if (actionId == EditorInfo.IME_ACTION_DONE
 					|| actionId == EditorInfo.IME_ACTION_NEXT) {
 				notifyListener();
-				return actionId == EditorInfo.IME_ACTION_DONE;
+				if (actionId == EditorInfo.IME_ACTION_DONE
+						|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+					InputMethodManager in = (InputMethodManager) getContext()
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					in.hideSoftInputFromWindow(v.getApplicationWindowToken(),
+							InputMethodManager.HIDE_NOT_ALWAYS);
+					return true;
+				}
 			}
 			break;
 		}

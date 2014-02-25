@@ -34,7 +34,7 @@ public class PKCalculatorTest extends TestCase {
 
 	public void testGetCmin() {
 		PKCalculator c = new PKCalculator(patient1, drug, regimen1);
-		double cmin = c.getCmin(drug.getNormalVd(patient1));
+		double cmin = c.getCmin(drug.getNormalVdPerABW(patient1));
 		assertTrue(Math.abs(cmin - 25.7) < TOL);
 	}
 

@@ -72,6 +72,12 @@ public class CalculatorItemSpinner extends RelativeLayout implements
 	public void clearValue() {
 		value.setSelection(0);
 	}
+	
+	@Override
+	public boolean isEmpty() {
+		// do not support nothing-selected
+		return false;
+	}
 
 	public <T> void setOptions(T[] spinnerOptions) {
 		ArrayAdapter<T> adapter = new ArrayAdapter<T>(getContext(),

@@ -13,6 +13,8 @@ public interface CalculatorItem {
 
 	public void clearValue();
 
+	public boolean isEmpty();
+
 	public int getLayoutId();
 
 	public TextView getLabel();

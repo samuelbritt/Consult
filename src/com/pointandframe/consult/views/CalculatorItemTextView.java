@@ -1,6 +1,7 @@
 package com.pointandframe.consult.views;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.RelativeLayout;
@@ -15,6 +16,7 @@ public class CalculatorItemTextView extends RelativeLayout implements
 	private TextView label;
 	private TextView unit;
 	private static final int LAYOUT_ID = R.layout.calculator_item_output;
+	private static final int DEFAULT_VALUE_ID = R.string.output_value_default;
 
 	public CalculatorItemTextView(Context context) {
 		super(context);
@@ -80,7 +82,7 @@ public class CalculatorItemTextView extends RelativeLayout implements
 	@Override
 	public void setValue(String formatString, float f) {
 		if (Float.isInfinite(f) || Float.isNaN(f)) {
-			value.setText(" - ");
+			value.setText(getResources().getString(DEFAULT_VALUE_ID));
 		} else {
 			value.setText(String.format(formatString, f));
 		}
@@ -93,7 +95,14 @@ public class CalculatorItemTextView extends RelativeLayout implements
 
 	@Override
 	public void clearValue() {
-		value.setText("");
+		value.setText(getResources().getString(DEFAULT_VALUE_ID));
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		String val = value.getText().toString();
+		String defVal = getResources().getString(DEFAULT_VALUE_ID);
+		return TextUtils.isEmpty(val) || val.equals(defVal);
 	}
 
 	@Override

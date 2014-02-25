@@ -1,13 +1,10 @@
 package com.pointandframe.consult.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class Vancomycin implements IDrug {
 
-	private static float NORMAL_VD = 0.75f;
-	private static float OBESE_VD = 0.56f;
-	private static float HYPOALBUMENIC_VD = 0.80f;
+	private static float NORMAL_VD_PER_KG = 0.75f;
+	private static float OBESE_VD_PER_KG = 0.56f;
+	private static float HYPOALBUMENIC_VD_PER_KG = 0.80f;
 	private static float K_ELIMINATION_SLOPE = 0.00083f;
 	private static float K_ELIMINATION_INTERCEPT = 0.0044f;
 
@@ -30,17 +27,27 @@ public class Vancomycin implements IDrug {
 	}
 
 	@Override
-	public float getNormalVd(Patient patient) {
+	public float getNormalVdPerABW(Patient patient) {
 		if (patient.getActualBodyWeight() > 1.3 * patient.getIdealBodyWeight()) {
-			return OBESE_VD;
+			return OBESE_VD_PER_KG;
 		} else {
-			return NORMAL_VD;
+			return NORMAL_VD_PER_KG;
 		}
 	}
 
 	@Override
+	public float getHypoAlbumenicVdPerABW(Patient patient) {
+		return HYPOALBUMENIC_VD_PER_KG;
+	}
+	
+	@Override
+	public float getNormalVd(Patient patient) {
+		return getNormalVdPerABW(patient) * patient.getActualBodyWeight();
+	}
+	
+	@Override
 	public float getHypoAlbumenicVd(Patient patient) {
-		return HYPOALBUMENIC_VD;
+		return getHypoAlbumenicVdPerABW(patient) * patient.getActualBodyWeight();
 	}
 
 	@Override

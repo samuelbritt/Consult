@@ -1,13 +1,11 @@
 package com.pointandframe.consult.model;
 
-
-
 public class PKCalculator {
 
 	private DosingRegimen dosingRegimen;
 	private Patient patient;
 	private IDrug drug;
-	
+
 	public PKCalculator(Patient patient, IDrug drug, DosingRegimen regimen) {
 		this.drug = drug;
 		this.patient = patient;
@@ -29,42 +27,49 @@ public class PKCalculator {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
+
 	public float getKElimination() {
 		return drug.getKElimination(patient);
 	}
-	
+
 	public float getHalflife() {
 		return drug.getHalfLife(patient);
 	}
-	
+
+	public float getNormalVdPerABW() {
+		return drug.getNormalVdPerABW(patient);
+	}
+
+	public float getHypoAlbumenicVdPerABW() {
+		return drug.getHypoAlbumenicVdPerABW(patient);
+	}
+
 	public float getNormalVd() {
 		return drug.getNormalVd(patient);
 	}
-	
+
 	public float getHypoAlbumenicVd() {
 		return drug.getHypoAlbumenicVd(patient);
 	}
-	
+
 	public double getCmin(float volumeOfDistribution) {
 		float t_inf = drug.getInfusionTime_hr(dosingRegimen.getDose_mg());
 		float tau = dosingRegimen.getDosingInterval_hr();
 		float k_el = drug.getKElimination(patient);
 
 		double Cmax = getCmax(volumeOfDistribution);
-		return Cmax * Math.exp(- k_el * (tau - t_inf));
+		return Cmax * Math.exp(-k_el * (tau - t_inf));
 	}
-	
+
 	public double getCmax(float volumeOfDistribution) {
 		float t_inf = drug.getInfusionTime_hr(dosingRegimen.getDose_mg());
 		float tau = dosingRegimen.getDosingInterval_hr();
 		float dose_mg = dosingRegimen.getDose_mg();
 		float k_el = drug.getKElimination(patient);
-		float abw = patient.getActualBodyWeight();
 		float Vd = volumeOfDistribution;
 
 		double num = (1 - Math.exp(-k_el * t_inf)) * dose_mg;
-		double denom = (1 - Math.exp(-k_el * tau)) * t_inf * k_el * Vd * abw;
-		return num / denom; 
+		double denom = (1 - Math.exp(-k_el * tau)) * t_inf * k_el * Vd;
+		return num / denom;
 	}
 }

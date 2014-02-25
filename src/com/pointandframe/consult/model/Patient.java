@@ -309,7 +309,7 @@ public class Patient implements IObservable, Parcelable {
 		return ibw;
 	}
 	
-	private float getAdjustedBodyWeight() {
+	public float getAdjustedBodyWeight() {
 		return 0.4f * (getActualBodyWeight() - getIdealBodyWeight()) + getIdealBodyWeight();
 	}
 
