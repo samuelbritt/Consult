@@ -311,19 +311,19 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 	}
 
 	private void updateOutputViews() {
-		outputHtInches.setValue(patient.getHeight_in());
+		outputHtInches.setValue("%d", ((int) patient.getHeight_in()));
 		outputKel.setValue("%.3f", calculator.getKElimination());
 		outputHalflife.setValue(calculator.getHalflife());
 		outputCrCl.setValue(patient.getCrCl());
 
 		float vd = calculator.getNormalVd();
-		outputVdNormal.setValue(vd);
+		outputVdNormal.setValue("%.2f", vd);
 		outputCminNormal.setValue(((float) calculator.getCmin(vd)));
 		outputCmaxNormal.setValue(((float) calculator.getCmax(vd)));
 
 		if (patient.inHypoAlbumenicState()) {
 			vd = calculator.getHypoAlbumenicVd();
-			outputVdHypoalbumenic.setValue(vd);
+			outputVdHypoalbumenic.setValue("%.2f", vd);
 			outputCminHypoalbumenic.setValue(((float) calculator.getCmin(vd)));
 			outputCmaxHypoalbumenic.setValue(((float) calculator.getCmax(vd)));
 			findViewById(R.id.output_hypoalbumenic).setVisibility(View.VISIBLE);
@@ -338,9 +338,11 @@ public class CalculatorVancActivity extends Activity implements IObserver,
 		switch (units) {
 		case CENTIMETER:
 			patient.setHeight_cm(ht_val);
+			outputHtInches.setVisibility(View.VISIBLE);
 			break;
 		case INCH:
 			patient.setHeight_in(ht_val);
+			outputHtInches.setVisibility(View.INVISIBLE);
 			break;
 		}
 	}

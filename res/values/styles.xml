@@ -21,7 +21,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minHeight">24dp</item>
-        
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -38,7 +37,7 @@
     <style name="TextAppearance.Calculator_Small">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFAAAAAA</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
         <!-- <item name="android:background">@drawable/border</item> -->
     </style>
 
@@ -65,19 +64,20 @@
         <item name="android:paddingBottom">?android:attr/listPreferredItemPaddingEnd</item>
         <item name="android:paddingTop">?android:attr/listPreferredItemPaddingStart</item>
         <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        
+        <item name="android:paddingRight">?android:attr/listPreferredItemPaddingRight</item>
 <!--         <item name="android:background">@drawable/border</item> -->
     </style>
-    
-        <style name="DataSection.Narrow">
+
+    <style name="DataSection.Narrow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?android:attr/listPreferredItemHeightSmall</item>
         <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
         <item name="android:paddingBottom">?android:attr/listPreferredItemPaddingEnd</item>
         <item name="android:paddingTop">?android:attr/listPreferredItemPaddingStart</item>
         <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        
-<!--         <item name="android:background">@drawable/border</item> -->
+        <item name="android:paddingRight">?android:attr/listPreferredItemPaddingRight</item>
+
+        <!-- <item name="android:background">@drawable/border</item> -->
     </style>
 
 </resources>

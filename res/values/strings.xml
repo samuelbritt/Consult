@@ -6,6 +6,7 @@
     
     <string name="dummy_label">Label</string>
     <string name="dummy_unit">unit</string>
+    <string name="divider_desc">Divider</string>
     
     <string name="action_clear">Clear</string>
     
@@ -37,10 +38,17 @@
 	<string name="input_isParaplegic_label">Paraplegic</string>
 	<string name="input_isQuadriplegic_label">Quadriplegic</string>
     
+	<string name="output_value_default"> - </string>
 	<string name="output_ht_inches_label">Height</string>
 	<string name="output_ht_inches_unit">in</string>
+	<string name="output_wt_ideal_label">Ideal</string>
+	<string name="output_wt_ideal_unit">kg</string>
+	<string name="output_wt_adj_label">Adj</string>
+	<string name="output_wt_adj_unit">kg</string>
 	<string name="output_Vd_label">V<sub><small>d</small></sub></string>
-	<string name="output_Vd_unit">L/kg</string>
+	<string name="output_Vd_unit">L</string>
+	<string name="output_Vd_over_ABW_label">V<sub><small>d</small></sub>/ABW</string>
+	<string name="output_Vd_over_ABW_unit">L/kg</string>
 	<string name="output_Cmax_label">C<sub><small>max</small></sub></string>
 	<string name="output_Cmax_unit">mg/L</string>
 	<string name="output_Cmin_label">C<sub><small>min</small></sub></string>

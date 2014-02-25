@@ -2,6 +2,7 @@ package com.pointandframe.consult.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -73,7 +74,7 @@ public class CalculatorItemTextView extends RelativeLayout implements
 
 	@Override
 	public void setValue(float f) {
-		setValue("%.2f", f);
+		setValue("%.1f", f);
 	}
 
 	@Override
@@ -83,6 +84,11 @@ public class CalculatorItemTextView extends RelativeLayout implements
 		} else {
 			value.setText(String.format(formatString, f));
 		}
+	}
+
+	public void setValue(String formatString, int i) {
+		value.setText(String.format(formatString, i));
+		value.setGravity(Gravity.RIGHT);
 	}
 
 	@Override
